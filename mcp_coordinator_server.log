@@ -1,0 +1,47 @@
+nohup: ignoring input
+INFO:__main__:✅ MCP Coordinator 初始化完成
+🚀 启动 MCP Coordinator
+============================================================
+协调器ID: mcp_coordinator
+版本: 1.0.0
+已注册MCP: 1
+============================================================
+协调器端点:
+  - GET  /coordinator/info           - 协调器信息
+  - GET  /coordinator/mcps           - 已注册MCP列表
+  - POST /coordinator/register       - 注册新MCP
+  - POST /coordinator/request/<mcp_id> - 转发MCP请求
+  - GET  /coordinator/health-check   - 检查所有MCP健康状态
+  - GET  /health                     - 协调器健康检查
+============================================================
+运行在端口: 8089
+============================================================
+ * Serving Flask app 'mcp_coordinator_server'
+ * Debug mode: off
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8089
+ * Running on http://169.254.0.21:8089
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:25:53] "GET /health HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:25:57] "[33mGET /api/github-sync HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:26:06] "GET /coordinator/mcps HTTP/1.1" 200 -
+INFO:__main__:✅ 注册MCP: github_mcp
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:28:37] "POST /coordinator/register HTTP/1.1" 200 -
+INFO:__main__:✅ 注册MCP: coding_workflow_mcp
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:28:46] "POST /coordinator/register HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:28:51] "GET /coordinator/mcps HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:28:56] "[33mGET /api/github-sync HTTP/1.1[0m" 404 -
+INFO:__main__:✅ 转发请求成功: github_mcp.get_repo_info
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:29:00] "POST /coordinator/request/github_mcp HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:35:27] "POST /coordinator/request/development_intervention_mcp HTTP/1.1" 200 -
+INFO:__main__:✅ 注册MCP: development_intervention_mcp
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:35:33] "POST /coordinator/register HTTP/1.1" 200 -
+INFO:__main__:✅ 转发请求成功: development_intervention_mcp.process_coding_task
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:35:54] "POST /coordinator/request/development_intervention_mcp HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:36:15] "GET /coordinator/mcps HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:36:20] "GET /coordinator/health-check HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:40:18] "GET /coordinator/mcps HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:40:18] "GET /coordinator/mcps HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:55:40] "GET /health HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [16/Jun/2025 00:59:49] "GET /coordinator/mcps HTTP/1.1" 200 -
