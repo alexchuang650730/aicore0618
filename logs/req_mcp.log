@@ -1,0 +1,16 @@
+nohup: ignoring input
+✅ 成功导入需求分析MCP
+🚀 启动需求分析MCP服务器...
+📍 服务地址: http://98.81.255.168:8094
+📋 服务功能: 智能需求分析
+ * Serving Flask app 'requirements_analysis_mcp_server'
+ * Debug mode: off
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8094
+ * Running on http://169.254.0.21:8094
+[33mPress CTRL+C to quit[0m
+127.0.0.1 - - [16/Jun/2025 01:11:42] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [16/Jun/2025 01:18:54] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [16/Jun/2025 01:20:05] "GET /health HTTP/1.1" 200 -
+127.0.0.1 - - [16/Jun/2025 01:21:35] "GET /health HTTP/1.1" 200 -

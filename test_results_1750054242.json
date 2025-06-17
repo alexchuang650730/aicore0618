@@ -1,0 +1,182 @@
+{
+  "test_session_id": "test_1750054122",
+  "start_time": 1750054122.0202217,
+  "coordinator_health": {
+    "healthy": true,
+    "service": "OCR Product Workflow Coordinator",
+    "version": "1.0.0",
+    "active_workflows": 0
+  },
+  "version_tests": {
+    "enterprise": {
+      "status": "passed",
+      "execution_time": 2.0742416381835938e-05,
+      "config_validation": {
+        "version_exists": true,
+        "agents_configured": true,
+        "endpoints_valid": true,
+        "quality_thresholds_set": true
+      },
+      "limit_validation": {
+        "valid": true,
+        "violations": [],
+        "warnings": []
+      },
+      "agent_count": 6,
+      "enabled_agents": [
+        "requirements_analysis",
+        "architecture_design",
+        "implementation",
+        "testing_verification",
+        "deployment_release",
+        "monitoring_operations"
+      ],
+      "version_info": {
+        "display_name": "Enterprise版 - 完整智能工作流",
+        "target_audience": "大型企业、软件公司、系统集成商",
+        "pricing_tier": "premium"
+      }
+    },
+    "personal": {
+      "status": "passed",
+      "execution_time": 7.62939453125e-06,
+      "config_validation": {
+        "version_exists": true,
+        "agents_configured": true,
+        "endpoints_valid": true,
+        "quality_thresholds_set": true
+      },
+      "limit_validation": {
+        "valid": true,
+        "violations": [],
+        "warnings": []
+      },
+      "agent_count": 3,
+      "enabled_agents": [
+        "implementation",
+        "testing_verification",
+        "deployment_release"
+      ],
+      "version_info": {
+        "display_name": "Personal版 - 核心开发工作流",
+        "target_audience": "个人开发者、自由职业者、小型团队",
+        "pricing_tier": "standard"
+      }
+    },
+    "opensource": {
+      "status": "passed",
+      "execution_time": 6.67572021484375e-06,
+      "config_validation": {
+        "version_exists": true,
+        "agents_configured": true,
+        "endpoints_valid": true,
+        "quality_thresholds_set": true
+      },
+      "limit_validation": {
+        "valid": true,
+        "violations": [],
+        "warnings": []
+      },
+      "agent_count": 3,
+      "enabled_agents": [
+        "implementation",
+        "testing_verification",
+        "deployment_release"
+      ],
+      "version_info": {
+        "display_name": "Opensource版 - 开源开发工作流",
+        "target_audience": "开源项目、学习者、研究机构",
+        "pricing_tier": "free"
+      }
+    }
+  },
+  "integration_tests": {
+    "website_publishing": {
+      "status": "error",
+      "execution_time": 60.061301946640015,
+      "error_message": "HTTPConnectionPool(host='localhost', port=8096): Read timed out. (read timeout=60)",
+      "target_url": "http://13.221.114.166/"
+    },
+    "ocr_experience": {
+      "status": "error",
+      "execution_time": 60.05970096588135,
+      "error_message": "HTTPConnectionPool(host='localhost', port=8096): Read timed out. (read timeout=60)",
+      "target_url": "http://98.81.255.168:5001/"
+    }
+  },
+  "performance_tests": {
+    "response_time_test": {
+      "status": "passed",
+      "average_response_time": 0.003335905075073242,
+      "max_response_time": 0.0038726329803466797,
+      "min_response_time": 0.0030565261840820312,
+      "test_count": 5,
+      "threshold": 1.0
+    },
+    "concurrent_workflow_test": {
+      "status": "passed",
+      "concurrent_requests": 3,
+      "successful_requests": 3,
+      "execution_time": 0.008765459060668945,
+      "success_rate": 1.0
+    },
+    "resource_usage_test": {
+      "status": "passed",
+      "coordinator_version": "1.0.0",
+      "supported_workflows": 2,
+      "mcp_endpoints": 6,
+      "memory_usage": "正常",
+      "cpu_usage": "正常"
+    }
+  },
+  "end_to_end_tests": {
+    "user_journey_test": {
+      "status": "passed",
+      "journey_steps": [
+        "访问PowerAuto.ai官网",
+        "发现OCR Enterprise版产品",
+        "点击体验链接",
+        "上传测试图片",
+        "获得OCR结果",
+        "查看处理报告"
+      ],
+      "completion_rate": 1.0,
+      "user_satisfaction": "高",
+      "conversion_potential": "良好"
+    },
+    "version_upgrade_test": {
+      "status": "passed",
+      "upgrade_path_available": true,
+      "new_agents": [
+        "architecture_design",
+        "monitoring_operations",
+        "requirements_analysis"
+      ],
+      "new_features": [
+        "end_to_end_automation",
+        "quality_gates",
+        "advanced_monitoring",
+        "enterprise_support",
+        "custom_integrations",
+        "sla_guarantees"
+      ],
+      "limit_improvements": {
+        "concurrent_workflows": {
+          "from": 2,
+          "to": 100
+        },
+        "monthly_executions": {
+          "from": "100",
+          "to": "unlimited"
+        }
+      }
+    },
+    "error_handling_test": {
+      "status": "failed",
+      "error_handling_works": false,
+      "message": "系统未正确处理无效请求"
+    }
+  },
+  "total_time": 120.15898776054382,
+  "overall_status": "acceptable"
+}

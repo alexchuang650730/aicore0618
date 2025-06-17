@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # PowerAutomation v0.5.3 .gitignore
 
 # Python
@@ -294,3 +295,9 @@ downloads/
 workspace/
 plugins/user_plugins/
 
+=======
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+>>>>>>> 588bbb4687b1d9eff91e7115657fb34facbf3b48
