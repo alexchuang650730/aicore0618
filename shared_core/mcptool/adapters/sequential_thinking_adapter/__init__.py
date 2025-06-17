@@ -1,2 +1,0 @@
-# PowerAutomation MCP Adapters Package
-

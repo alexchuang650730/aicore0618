@@ -301,6 +301,119 @@
             display: flex;
             gap: 12px;
             margin-bottom: 16px;
+        }
+
+        /* 三节点工作流样式 */
+        .workflow-metrics {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .metric-item {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 4px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .three-nodes {
+            margin-top: 16px;
+        }
+
+        .node-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .node-card:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .node-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .node-name {
+            font-weight: 600;
+            color: #1f2937;
+            margin-left: 8px;
+        }
+
+        .node-status {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .node-status.active {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .node-status.ready {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .node-progress {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .progress-text {
+            font-size: 12px;
+            font-weight: 600;
+            color: #374151;
+            min-width: 30px;
+        }
+
+        .node-details {
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.4;
+        }
+
+        .node-details div {
+            margin-bottom: 2px;
+        }
+
+        /* 节点颜色 */
+        #coding-node .progress-fill {
+            background: linear-gradient(90deg, #007AFF, #0056CC);
+        }
+
+        #editing-node .progress-fill {
+            background: linear-gradient(90deg, #FF8C00, #FF6600);
+        }
+
+        #deployment-node .progress-fill {
+            background: linear-gradient(90deg, #00C851, #00A142);
+        }
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
             padding: 16px;
             background: #f8fafc;
             border-radius: 8px;
@@ -446,13 +559,179 @@
                 </div>
             </header>
 
-            <!-- 內容區域 -->
+             <!-- 內容區域 -->
             <main class="content" id="main-content">
                 <!-- 儀表板頁面 -->
-                <div id="dashboard-page">
-                    <!-- 統計卡片 -->
-                    <div class="dashboard-grid">
-                        <div class="card stat-card">
+                <div class="page" id="dashboard-page">
+                    <h1>智慧工作台儀表板</h1>
+                    
+                    <!-- 三节点工作流Dashboard卡片 -->
+                    <div class="card" id="three-node-workflow-card" style="margin-bottom: 24px;">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-project-diagram"></i>
+                                三节点编码工作流
+                            </div>
+                            <span class="workflow-status" id="workflow-status">加载中...</span>
+                        </div>
+                        
+                        <!-- 工作流指标 -->
+                        <div class="workflow-metrics" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 20px;">
+                            <div class="metric-item">
+                                <div class="metric-value" id="code-quality-value">--</div>
+                                <div class="metric-label">代码质量</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value" id="architecture-compliance-value">--</div>
+                                <div class="metric-label">架构合规</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value" id="daily-commits-value">--</div>
+                                <div class="metric-label">今日提交</div>
+                            </div>
+                            <div class="metric-item">
+                                <div class="metric-value" id="violations-value">--</div>
+                                <div class="metric-label">违规检测</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 三节点状态 -->
+                        <div class="three-nodes" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                            <div class="node-card" id="coding-node">
+                                <div class="node-header">
+                                    <i class="fas fa-code"></i>
+                                    <span class="node-name">编码</span>
+                                    <span class="node-status">--</span>
+                                </div>
+                                <div class="node-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="coding-progress" style="width: 0%"></div>
+                                    </div>
+                                    <span class="progress-text" id="coding-progress-text">0%</span>
+                                </div>
+                                <div class="node-details" id="coding-details">
+                                    <div>分支: --</div>
+                                    <div>提交: --</div>
+                                    <div>文件: --</div>
+                                </div>
+                            </div>
+                            
+                            <div class="node-card" id="editing-node">
+                                <div class="node-header">
+                                    <i class="fas fa-edit"></i>
+                                    <span class="node-name">编辑</span>
+                                    <span class="node-status">--</span>
+                                </div>
+                                <div class="node-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="editing-progress" style="width: 0%"></div>
+                                    </div>
+                                    <span class="progress-text" id="editing-progress-text">0%</span>
+                                </div>
+                                <div class="node-details" id="editing-details">
+                                    <div>未提交: --</div>
+                                    <div>合规: --</div>
+                                    <div>修复: --</div>
+                                </div>
+                            </div>
+                            
+                            <div class="node-card" id="deployment-node">
+                                <div class="node-header">
+                                    <i class="fas fa-rocket"></i>
+                                    <span class="node-name">部署</span>
+                                    <span class="node-status">--</span>
+                                </div>
+                                <div class="node-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="deployment-progress" style="width: 0%"></div>
+                                    </div>
+                                    <span class="progress-text" id="deployment-progress-text">0%</span>
+                                </div>
+                                <div class="node-details" id="deployment-details">
+                                    <div>状态: --</div>
+                                    <div>就绪: --</div>
+                                    <div>部署: --</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 实时更新时间 -->
+                        <div style="margin-top: 16px; text-align: right; color: #6b7280; font-size: 12px;">
+                            最后更新: <span id="last-updated">--</span>
+                        </div>
+                    </div>
+
+                    <!-- 飞书协同集成卡片 -->
+                    <div class="card" id="feishu-integration-card" style="margin-bottom: 24px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">
+                        <div class="card-header" style="border-bottom: 1px solid rgba(255,255,255,0.2);">
+                            <div class="card-title" style="color: white;">
+                                <i class="fas fa-comments"></i>
+                                飞书集成
+                            </div>
+                            <span class="workflow-status" id="feishu-status" style="background: rgba(255,255,255,0.2); color: white;">已连接</span>
+                        </div>
+                        
+                        <div style="padding: 16px 0;">
+                            <div style="margin-bottom: 16px; color: rgba(255,255,255,0.9);">
+                                实时通知 | 团队协作 | 移动端同步
+                            </div>
+                            
+                            <!-- 飞书状态统计 -->
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 32px; font-weight: bold; margin-bottom: 4px;" id="feishu-notifications">24</div>
+                                    <div style="color: rgba(255,255,255,0.8);">今日通知</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 32px; font-weight: bold; margin-bottom: 4px;" id="feishu-active-groups">3</div>
+                                    <div style="color: rgba(255,255,255,0.8);">活跃群组</div>
+                                </div>
+                            </div>
+                            
+                            <!-- 群组选择器 -->
+                            <div style="margin-bottom: 16px;">
+                                <label style="display: block; margin-bottom: 8px; color: rgba(255,255,255,0.9); font-weight: 500;">当前工作群组</label>
+                                <div class="feishu-group-selector">
+                                    <select id="feishu-group-select" style="width: 100%; padding: 12px; border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; background: rgba(255,255,255,0.1); color: white; font-size: 14px;">
+                                        <option value="dev">💻 开发讨论群</option>
+                                        <option value="architecture">🏗️ 架构决策群</option>
+                                        <option value="pr_review">🔍 代码审查群</option>
+                                        <option value="deployment">🚀 部署监控群</option>
+                                        <option value="smart_ui">🎨 智慧UI群</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <!-- 当前群组信息 -->
+                            <div id="current-group-info" style="background: rgba(255,255,255,0.1); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div>
+                                        <div style="font-weight: 500; margin-bottom: 4px;" id="current-group-name">开发讨论群</div>
+                                        <div style="font-size: 12px; color: rgba(255,255,255,0.7);" id="current-group-desc">日常开发交流和技术讨论</div>
+                                    </div>
+                                    <div style="text-align: right;">
+                                        <div style="font-size: 14px; font-weight: 500;" id="current-group-members">12/15</div>
+                                        <div style="font-size: 12px; color: rgba(255,255,255,0.7);">在线成员</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 快速操作按钮 -->
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                                <button class="btn" id="send-test-message" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3);">
+                                    <i class="fas fa-paper-plane"></i>
+                                    发送测试消息
+                                </button>
+                                <button class="btn" id="refresh-feishu-status" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.3);">
+                                    <i class="fas fa-sync-alt"></i>
+                                    刷新状态
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 原有的工作流卡片 -->
+                    <div class="dashboard-grid">rd stat-card">
                             <div class="card-icon">
                                 <i class="fas fa-project-diagram"></i>
                             </div>
@@ -666,8 +945,132 @@
                 });
             });
 
+            // 飞书集成功能
+            function updateFeishuStatus() {
+                fetch('/api/feishu/status')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const status = data.data;
+                            
+                            // 更新统计数据
+                            document.getElementById('feishu-notifications').textContent = status.total_notifications;
+                            document.getElementById('feishu-active-groups').textContent = status.active_groups;
+                            
+                            // 更新当前群组信息
+                            const currentGroup = status.current_group;
+                            document.getElementById('current-group-name').textContent = currentGroup.name;
+                            document.getElementById('current-group-desc').textContent = currentGroup.description;
+                            document.getElementById('current-group-members').textContent = 
+                                `${currentGroup.status.online_members}/${currentGroup.status.total_members}`;
+                            
+                            // 更新群组选择器
+                            document.getElementById('feishu-group-select').value = currentGroup.key;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('获取飞书状态失败:', error);
+                    });
+            }
+
+            function switchFeishuGroup(groupKey) {
+                fetch('/api/feishu/switch-group', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ group_key: groupKey })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // 显示切换成功消息
+                        showNotification(`已切换到${data.group_info.name}`, 'success');
+                        
+                        // 更新界面
+                        updateFeishuStatus();
+                    } else {
+                        showNotification(`切换失败: ${data.message}`, 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('切换飞书群组失败:', error);
+                    showNotification('切换失败，请稍后重试', 'error');
+                });
+            }
+
+            function sendTestMessage() {
+                const testMessage = `🎯 PowerAutomation 测试通知\n时间: ${new Date().toLocaleString()}\n状态: 系统运行正常`;
+                
+                fetch('/api/feishu/send-message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ message: testMessage })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showNotification(`测试消息已发送到${data.group}`, 'success');
+                    } else {
+                        showNotification(`发送失败: ${data.error}`, 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('发送测试消息失败:', error);
+                    showNotification('发送失败，请稍后重试', 'error');
+                });
+            }
+
+            function showNotification(message, type) {
+                // 创建通知元素
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    color: white;
+                    font-weight: 500;
+                    z-index: 1000;
+                    animation: slideIn 0.3s ease-out;
+                    background: ${type === 'success' ? '#10b981' : '#ef4444'};
+                `;
+                notification.textContent = message;
+                
+                document.body.appendChild(notification);
+                
+                // 3秒后自动移除
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease-in';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+
             // 模擬實時數據更新
             setInterval(updateStats, 5000);
+            setInterval(updateThreeNodeWorkflow, 30000); // 30秒更新一次三节点工作流
+            setInterval(updateFeishuStatus, 15000); // 15秒更新一次飞书状态
+
+            // 页面加载时初始化
+            document.addEventListener('DOMContentLoaded', function() {
+                updateThreeNodeWorkflow();
+                updateFeishuStatus();
+                
+                // 绑定飞书群组切换事件
+                document.getElementById('feishu-group-select').addEventListener('change', function(e) {
+                    switchFeishuGroup(e.target.value);
+                });
+                
+                // 绑定飞书操作按钮事件
+                document.getElementById('send-test-message').addEventListener('click', sendTestMessage);
+                document.getElementById('refresh-feishu-status').addEventListener('click', updateFeishuStatus);
+            });
 
             function updateStats() {
                 const statNumbers = document.querySelectorAll('.stat-number');
@@ -677,6 +1080,87 @@
                     stat.textContent = newValue.toLocaleString();
                 });
             }
+
+            // 三节点工作流Dashboard数据更新
+            function updateThreeNodeWorkflow() {
+                fetch('/api/coding-workflow/metrics')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // 更新工作流状态
+                            const statusElement = document.getElementById('workflow-status');
+                            statusElement.textContent = data.status;
+                            statusElement.className = `workflow-status status-${data.status_color}`;
+
+                            // 更新指标
+                            const metrics = data.metrics;
+                            document.getElementById('code-quality-value').textContent = metrics.code_quality.value + metrics.code_quality.unit;
+                            document.getElementById('architecture-compliance-value').textContent = metrics.architecture_compliance.value + metrics.architecture_compliance.unit;
+                            document.getElementById('daily-commits-value').textContent = metrics.daily_commits.value;
+                            document.getElementById('violations-value').textContent = metrics.violations_detected.value;
+
+                            // 更新最后更新时间
+                            const lastUpdated = new Date(data.timestamp).toLocaleString('zh-CN');
+                            document.getElementById('last-updated').textContent = lastUpdated;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('获取工作流指标失败:', error);
+                    });
+
+                // 获取三节点状态
+                fetch('/api/coding-workflow/nodes')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success && data.nodes) {
+                            data.nodes.forEach(node => {
+                                const nodeId = node.id;
+                                
+                                // 更新节点状态
+                                const statusElement = document.querySelector(`#${nodeId}-node .node-status`);
+                                statusElement.textContent = node.status === 'active' ? '活跃' : node.status === 'ready' ? '就绪' : node.status;
+                                statusElement.className = `node-status ${node.status}`;
+
+                                // 更新进度条
+                                const progressFill = document.getElementById(`${nodeId}-progress`);
+                                const progressText = document.getElementById(`${nodeId}-progress-text`);
+                                progressFill.style.width = node.progress + '%';
+                                progressText.textContent = node.progress + '%';
+
+                                // 更新节点详情
+                                const detailsElement = document.getElementById(`${nodeId}-details`);
+                                if (nodeId === 'coding') {
+                                    detailsElement.innerHTML = `
+                                        <div>分支: ${node.details.current_branch}</div>
+                                        <div>提交: ${node.details.commits_today}</div>
+                                        <div>文件: ${node.details.files_modified}</div>
+                                    `;
+                                } else if (nodeId === 'editing') {
+                                    detailsElement.innerHTML = `
+                                        <div>未提交: ${node.details.uncommitted_files}</div>
+                                        <div>合规: ${node.details.compliance_score}%</div>
+                                        <div>修复: ${node.details.auto_fixes_applied}</div>
+                                    `;
+                                } else if (nodeId === 'deployment') {
+                                    detailsElement.innerHTML = `
+                                        <div>状态: ${node.details.release_manager_status}</div>
+                                        <div>就绪: ${node.details.deployment_ready ? '是' : '否'}</div>
+                                        <div>部署: ${node.details.last_deployment}</div>
+                                    `;
+                                }
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        console.error('获取三节点状态失败:', error);
+                    });
+            }
+
+            // 初始加载三节点数据
+            updateThreeNodeWorkflow();
+            
+            // 每30秒更新一次三节点数据
+            setInterval(updateThreeNodeWorkflow, 30000);
         });
     </script>
 </body>
