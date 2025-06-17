@@ -1,0 +1,105 @@
+# PowerAutomation 测试调度配置
+
+# 调度任务配置
+schedules:
+  # 每日完整测试
+  daily_comprehensive_test:
+    # cron表达式: 分 时 日 月 周
+    cron: "0 2 * * *"  # 每天凌晨2点
+    description: "每日完整测试 - 运行所有comprehensive测试"
+    test_filter:
+      test_type: "comprehensive"
+    enabled: true
+    
+  # 每小时冒烟测试
+  hourly_smoke_test:
+    cron: "0 * * * *"  # 每小时整点
+    description: "每小时冒烟测试 - 运行简单测试"
+    test_filter:
+      test_type: "simple"
+    enabled: false  # 默认关闭，避免过于频繁
+    
+  # 每周完整测试
+  weekly_full_test:
+    cron: "0 3 * * 0"  # 每周日凌晨3点
+    description: "每周完整测试 - 运行所有测试"
+    test_filter: {}  # 空过滤器表示所有测试
+    enabled: true
+    
+  # 工作日快速测试
+  weekday_quick_test:
+    cron: "0 9 * * 1-5"  # 工作日上午9点
+    description: "工作日快速测试 - 运行单元测试"
+    test_filter:
+      test_type: "unit"
+    enabled: true
+    
+  # 每月性能测试
+  monthly_performance_test:
+    cron: "0 4 1 * *"  # 每月1号凌晨4点
+    description: "每月性能测试 - 运行性能相关测试"
+    test_filter:
+      test_subtype: "performance"
+    enabled: true
+
+# 调度器设置
+scheduler_settings:
+  # 调度器检查间隔（秒）
+  check_interval: 60
+  
+  # 最大并发任务数
+  max_concurrent_tasks: 2
+  
+  # 任务超时时间（秒）
+  task_timeout: 3600
+  
+  # 失败重试次数
+  retry_count: 1
+  
+  # 重试间隔（秒）
+  retry_interval: 300
+
+# 触发器配置
+triggers:
+  # 代码变更触发
+  code_change:
+    enabled: false
+    description: "代码变更时触发测试"
+    test_filter:
+      test_type: "unit"
+    
+  # 部署前触发
+  pre_deployment:
+    enabled: false
+    description: "部署前触发完整测试"
+    test_filter:
+      test_type: "comprehensive"
+    
+  # 错误率阈值触发
+  error_threshold:
+    enabled: false
+    description: "错误率超过阈值时触发测试"
+    threshold: 0.1  # 10%
+    test_filter:
+      test_type: "simple"
+
+# 通知设置
+notifications:
+  # 测试完成通知
+  test_completion:
+    enabled: false
+    recipients:
+      - "admin@powerautomation.com"
+    conditions:
+      - "failure"
+      - "daily_report"
+    
+  # 调度器状态通知
+  scheduler_status:
+    enabled: false
+    recipients:
+      - "ops@powerautomation.com"
+    conditions:
+      - "scheduler_error"
+      - "task_timeout"
+

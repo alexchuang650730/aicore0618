@@ -1,0 +1,596 @@
+{
+  "report_type": "session",
+  "report_time": "2025-06-17T06:24:15.705795",
+  "generator": "PowerAutomation TestReporter v1.0",
+  "session": {
+    "session_id": "session_20250617_062412",
+    "start_time": "2025-06-17 06:24:12.247112",
+    "end_time": "2025-06-17 06:24:15.704597",
+    "total_tests": 30,
+    "passed_tests": 15,
+    "failed_tests": 0,
+    "error_tests": 15,
+    "skipped_tests": 0,
+    "results": [
+      {
+        "test_id": "cloud_search_mcp.TestCloudSearchMcpComprehensive.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "cloud_search_mcp",
+        "test_type": "unit",
+        "status": "ERROR",
+        "duration": 0.090707,
+        "start_time": "2025-06-17 06:24:12.480016",
+        "end_time": "2025-06-17 06:24:12.570723",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/cloud_search_mcp/unit_tests/test_cloud_search_mcp_comprehensive.py",
+          "test_class": "TestCloudSearchMcpComprehensive",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python -m unittest test_cloud_search_mcp_comprehensive.TestCloudSearchMcpComprehensive.test_sync_operations -v",
+          "return_code": 1,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "cloud_search_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "cloud_search_mcp",
+        "test_type": "unit",
+        "status": "ERROR",
+        "duration": 0.090161,
+        "start_time": "2025-06-17 06:24:12.481177",
+        "end_time": "2025-06-17 06:24:12.571338",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/cloud_search_mcp/unit_tests/test_cloud_search_mcp_comprehensive.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python test_cloud_search_mcp_comprehensive.py",
+          "return_code": 1,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "development_intervention_mcp.TestDevelopmentInterventionMcpComprehensive.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "development_intervention_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 0.097549,
+        "start_time": "2025-06-17 06:24:12.481743",
+        "end_time": "2025-06-17 06:24:12.579292",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/development_intervention_mcp/unit_tests/test_development_intervention_mcp_comprehensive.py",
+          "test_class": "TestDevelopmentInterventionMcpComprehensive",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python -m unittest test_development_intervention_mcp_comprehensive.TestDevelopmentInterventionMcpComprehensive.test_sync_operations -v",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "development_intervention_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "development_intervention_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 0.133832,
+        "start_time": "2025-06-17 06:24:12.482236",
+        "end_time": "2025-06-17 06:24:12.616068",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/development_intervention_mcp/unit_tests/test_development_intervention_mcp_comprehensive.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python test_development_intervention_mcp_comprehensive.py",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "directory_structure_mcp.TestDirectoryStructureMcpComprehensive.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "directory_structure_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 0.099735,
+        "start_time": "2025-06-17 06:24:12.570857",
+        "end_time": "2025-06-17 06:24:12.670592",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/directory_structure_mcp/unit_tests/test_directory_structure_mcp_comprehensive.py",
+          "test_class": "TestDirectoryStructureMcpComprehensive",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python -m unittest test_directory_structure_mcp_comprehensive.TestDirectoryStructureMcpComprehensive.test_sync_operations -v",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "directory_structure_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "directory_structure_mcp",
+        "test_type": "unit",
+        "status": "ERROR",
+        "duration": 0.132066,
+        "start_time": "2025-06-17 06:24:12.571477",
+        "end_time": "2025-06-17 06:24:12.703543",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/directory_structure_mcp/unit_tests/test_directory_structure_mcp_comprehensive.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python test_directory_structure_mcp_comprehensive.py",
+          "return_code": 1,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "enhanced_workflow_mcp.TestEnhancedWorkflowMcpComprehensive.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "enhanced_workflow_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 0.279571,
+        "start_time": "2025-06-17 06:24:12.579389",
+        "end_time": "2025-06-17 06:24:12.858960",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/enhanced_workflow_mcp/unit_tests/test_enhanced_workflow_mcp_comprehensive.py",
+          "test_class": "TestEnhancedWorkflowMcpComprehensive",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python -m unittest test_enhanced_workflow_mcp_comprehensive.TestEnhancedWorkflowMcpComprehensive.test_sync_operations -v",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "enhanced_workflow_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "enhanced_workflow_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 0.286662,
+        "start_time": "2025-06-17 06:24:12.616284",
+        "end_time": "2025-06-17 06:24:12.902946",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/enhanced_workflow_mcp/unit_tests/test_enhanced_workflow_mcp_comprehensive.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python test_enhanced_workflow_mcp_comprehensive.py",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "enterprise_smartui_mcp.TestEnterpriseSmartuiMcpComprehensive.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "enterprise_smartui_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 0.097995,
+        "start_time": "2025-06-17 06:24:12.670696",
+        "end_time": "2025-06-17 06:24:12.768691",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/enterprise_smartui_mcp/unit_tests/test_enterprise_smartui_mcp_comprehensive.py",
+          "test_class": "TestEnterpriseSmartuiMcpComprehensive",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python -m unittest test_enterprise_smartui_mcp_comprehensive.TestEnterpriseSmartuiMcpComprehensive.test_sync_operations -v",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "enterprise_smartui_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "enterprise_smartui_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 0.126813,
+        "start_time": "2025-06-17 06:24:12.703735",
+        "end_time": "2025-06-17 06:24:12.830548",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/enterprise_smartui_mcp/unit_tests/test_enterprise_smartui_mcp_comprehensive.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python test_enterprise_smartui_mcp_comprehensive.py",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "github_mcp.TestGithubMcpComprehensive.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "github_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 0.220471,
+        "start_time": "2025-06-17 06:24:12.768825",
+        "end_time": "2025-06-17 06:24:12.989296",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/github_mcp/unit_tests/test_github_mcp_comprehensive.py",
+          "test_class": "TestGithubMcpComprehensive",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python -m unittest test_github_mcp_comprehensive.TestGithubMcpComprehensive.test_sync_operations -v",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "github_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "github_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 0.263138,
+        "start_time": "2025-06-17 06:24:12.830791",
+        "end_time": "2025-06-17 06:24:13.093929",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/github_mcp/unit_tests/test_github_mcp_comprehensive.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python test_github_mcp_comprehensive.py",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "kilocode_mcp.TestKilocodeMcpComprehensive.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "kilocode_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 0.113103,
+        "start_time": "2025-06-17 06:24:12.859138",
+        "end_time": "2025-06-17 06:24:12.972241",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/kilocode_mcp/unit_tests/test_kilocode_mcp_comprehensive.py",
+          "test_class": "TestKilocodeMcpComprehensive",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python -m unittest test_kilocode_mcp_comprehensive.TestKilocodeMcpComprehensive.test_sync_operations -v",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "kilocode_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "kilocode_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 0.130898,
+        "start_time": "2025-06-17 06:24:12.903117",
+        "end_time": "2025-06-17 06:24:13.034015",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/kilocode_mcp/unit_tests/test_kilocode_mcp_comprehensive.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python test_kilocode_mcp_comprehensive.py",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "local_model_mcp.TestLocalModelMcpComprehensive.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "local_model_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 2.482728,
+        "start_time": "2025-06-17 06:24:12.972420",
+        "end_time": "2025-06-17 06:24:15.455148",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/local_model_mcp/unit_tests/test_local_model_mcp_comprehensive.py",
+          "test_class": "TestLocalModelMcpComprehensive",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python -m unittest test_local_model_mcp_comprehensive.TestLocalModelMcpComprehensive.test_sync_operations -v",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "local_model_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "local_model_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 2.714005,
+        "start_time": "2025-06-17 06:24:12.989384",
+        "end_time": "2025-06-17 06:24:15.703389",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/local_model_mcp/unit_tests/test_local_model_mcp_comprehensive.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python test_local_model_mcp_comprehensive.py",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "test_manage_mcp.TestTestManageMcpComprehensive.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "test_manage_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 0.122971,
+        "start_time": "2025-06-17 06:24:13.034196",
+        "end_time": "2025-06-17 06:24:13.157167",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/test_manage_mcp/unit_tests/test_test_manage_mcp_comprehensive.py",
+          "test_class": "TestTestManageMcpComprehensive",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python -m unittest test_test_manage_mcp_comprehensive.TestTestManageMcpComprehensive.test_sync_operations -v",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "test_manage_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "test_manage_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 0.161015,
+        "start_time": "2025-06-17 06:24:13.094149",
+        "end_time": "2025-06-17 06:24:13.255164",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/test_manage_mcp/unit_tests/test_test_manage_mcp_comprehensive.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python test_test_manage_mcp_comprehensive.py",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "architecture_design_mcp.TestArchitectureDesignMcpComprehensive.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "architecture_design_mcp",
+        "test_type": "unit",
+        "status": "ERROR",
+        "duration": 0.091839,
+        "start_time": "2025-06-17 06:24:13.157363",
+        "end_time": "2025-06-17 06:24:13.249202",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/workflow/architecture_design_mcp/unit_tests/test_architecture_design_mcp_comprehensive.py",
+          "test_class": "TestArchitectureDesignMcpComprehensive",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python -m unittest test_architecture_design_mcp_comprehensive.TestArchitectureDesignMcpComprehensive.test_sync_operations -v",
+          "return_code": 1,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "architecture_design_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "architecture_design_mcp",
+        "test_type": "unit",
+        "status": "ERROR",
+        "duration": 0.086098,
+        "start_time": "2025-06-17 06:24:13.249392",
+        "end_time": "2025-06-17 06:24:13.335490",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/workflow/architecture_design_mcp/unit_tests/test_architecture_design_mcp_comprehensive.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python test_architecture_design_mcp_comprehensive.py",
+          "return_code": 1,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "coding_workflow_mcp.TestCodingWorkflowMcpComprehensive.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "coding_workflow_mcp",
+        "test_type": "unit",
+        "status": "ERROR",
+        "duration": 0.095369,
+        "start_time": "2025-06-17 06:24:13.255382",
+        "end_time": "2025-06-17 06:24:13.350751",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/workflow/coding_workflow_mcp/unit_tests/test_coding_workflow_mcp_comprehensive.py",
+          "test_class": "TestCodingWorkflowMcpComprehensive",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python -m unittest test_coding_workflow_mcp_comprehensive.TestCodingWorkflowMcpComprehensive.test_sync_operations -v",
+          "return_code": 1,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "coding_workflow_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "coding_workflow_mcp",
+        "test_type": "unit",
+        "status": "ERROR",
+        "duration": 0.09019,
+        "start_time": "2025-06-17 06:24:13.335589",
+        "end_time": "2025-06-17 06:24:13.425779",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/workflow/coding_workflow_mcp/unit_tests/test_coding_workflow_mcp_comprehensive.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python test_coding_workflow_mcp_comprehensive.py",
+          "return_code": 1,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "developer_flow_mcp.TestDeveloperFlowMcpComprehensive.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "developer_flow_mcp",
+        "test_type": "unit",
+        "status": "ERROR",
+        "duration": 0.097805,
+        "start_time": "2025-06-17 06:24:13.350847",
+        "end_time": "2025-06-17 06:24:13.448652",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/workflow/developer_flow_mcp/unit_tests/test_developer_flow_mcp_comprehensive.py",
+          "test_class": "TestDeveloperFlowMcpComprehensive",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python -m unittest test_developer_flow_mcp_comprehensive.TestDeveloperFlowMcpComprehensive.test_sync_operations -v",
+          "return_code": 1,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "developer_flow_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "developer_flow_mcp",
+        "test_type": "unit",
+        "status": "ERROR",
+        "duration": 0.08381,
+        "start_time": "2025-06-17 06:24:13.425878",
+        "end_time": "2025-06-17 06:24:13.509688",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/workflow/developer_flow_mcp/unit_tests/test_developer_flow_mcp_comprehensive.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python test_developer_flow_mcp_comprehensive.py",
+          "return_code": 1,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "operations_workflow_mcp.TestOperationsWorkflowMcpComprehensive.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "operations_workflow_mcp",
+        "test_type": "unit",
+        "status": "ERROR",
+        "duration": 0.09656,
+        "start_time": "2025-06-17 06:24:13.448750",
+        "end_time": "2025-06-17 06:24:13.545310",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/workflow/operations_workflow_mcp/unit_tests/test_operations_workflow_mcp_comprehensive.py",
+          "test_class": "TestOperationsWorkflowMcpComprehensive",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python -m unittest test_operations_workflow_mcp_comprehensive.TestOperationsWorkflowMcpComprehensive.test_sync_operations -v",
+          "return_code": 1,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "operations_workflow_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "operations_workflow_mcp",
+        "test_type": "unit",
+        "status": "ERROR",
+        "duration": 0.083103,
+        "start_time": "2025-06-17 06:24:13.509787",
+        "end_time": "2025-06-17 06:24:13.592890",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/workflow/operations_workflow_mcp/unit_tests/test_operations_workflow_mcp_comprehensive.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python test_operations_workflow_mcp_comprehensive.py",
+          "return_code": 1,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "release_manager_mcp.TestReleaseManagerMcpComprehensive.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "release_manager_mcp",
+        "test_type": "unit",
+        "status": "ERROR",
+        "duration": 0.113409,
+        "start_time": "2025-06-17 06:24:13.545404",
+        "end_time": "2025-06-17 06:24:13.658813",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/workflow/release_manager_mcp/unit_tests/test_release_manager_mcp_comprehensive.py",
+          "test_class": "TestReleaseManagerMcpComprehensive",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python -m unittest test_release_manager_mcp_comprehensive.TestReleaseManagerMcpComprehensive.test_sync_operations -v",
+          "return_code": 1,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "release_manager_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "release_manager_mcp",
+        "test_type": "unit",
+        "status": "ERROR",
+        "duration": 0.084364,
+        "start_time": "2025-06-17 06:24:13.592983",
+        "end_time": "2025-06-17 06:24:13.677347",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/workflow/release_manager_mcp/unit_tests/test_release_manager_mcp_comprehensive.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python test_release_manager_mcp_comprehensive.py",
+          "return_code": 1,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "requirements_analysis_mcp.TestRequirementsAnalysisMcpComprehensive.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "requirements_analysis_mcp",
+        "test_type": "unit",
+        "status": "ERROR",
+        "duration": 0.165335,
+        "start_time": "2025-06-17 06:24:13.658909",
+        "end_time": "2025-06-17 06:24:13.824244",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/workflow/requirements_analysis_mcp/unit_tests/test_requirements_analysis_mcp_comprehensive.py",
+          "test_class": "TestRequirementsAnalysisMcpComprehensive",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python -m unittest test_requirements_analysis_mcp_comprehensive.TestRequirementsAnalysisMcpComprehensive.test_sync_operations -v",
+          "return_code": 1,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "requirements_analysis_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "requirements_analysis_mcp",
+        "test_type": "unit",
+        "status": "ERROR",
+        "duration": 0.164387,
+        "start_time": "2025-06-17 06:24:13.677431",
+        "end_time": "2025-06-17 06:24:13.841818",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/workflow/requirements_analysis_mcp/unit_tests/test_requirements_analysis_mcp_comprehensive.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python test_requirements_analysis_mcp_comprehensive.py",
+          "return_code": 1,
+          "retry_count": 0
+        }
+      }
+    ]
+  },
+  "summary": {
+    "total": 30,
+    "passed": 15,
+    "failed": 0,
+    "errors": 15,
+    "skipped": 0,
+    "success_rate": 0.5,
+    "duration": 3.457485
+  }
+}

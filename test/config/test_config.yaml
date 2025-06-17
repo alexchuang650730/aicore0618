@@ -1,0 +1,102 @@
+# PowerAutomation 统一测试框架配置
+
+# 测试设置
+test_settings:
+  # 并行工作线程数
+  parallel_workers: 4
+  
+  # 测试超时时间（秒）
+  timeout: 300
+  
+  # 重试次数
+  retry_count: 3
+  
+  # 快速失败模式
+  fail_fast: false
+
+# 测试发现配置
+test_discovery:
+  # 包含的测试文件模式
+  include_patterns:
+    - "../mcp/adapter/*/unit_tests/test_*.py"
+    - "../mcp/adapter/*/integration_tests/test_*.py"
+    - "../mcp/workflow/*/unit_tests/test_*.py"
+    - "../mcp/workflow/*/integration_tests/test_*.py"
+  
+  # 排除的文件模式
+  exclude_patterns:
+    - "*/__pycache__/*"
+    - "*/.*"
+    - "*/*_backup/*"
+    - "*/*_old/*"
+
+# 报告配置
+reporting:
+  # 报告格式
+  formats:
+    - "json"
+    - "html"
+  
+  # 输出目录
+  output_dir: "reports"
+  
+  # 是否包含日志
+  include_logs: true
+  
+  # 报告归档天数
+  archive_days: 30
+
+# 调度配置
+scheduling:
+  # 是否启用调度
+  enabled: true
+  
+  # 调度检查间隔（秒）
+  check_interval: 60
+
+# 日志配置
+logging:
+  # 日志级别
+  level: "INFO"
+  
+  # 日志文件
+  files:
+    execution: "logs/test_execution.log"
+    scheduler: "logs/scheduler.log"
+    error: "logs/error.log"
+  
+  # 日志格式
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# 环境配置
+environment:
+  # 项目根目录
+  project_root: "/opt/powerautomation"
+  
+  # Python路径
+  python_paths:
+    - "/opt/powerautomation"
+    - "/opt/powerautomation/mcp"
+    - "/opt/powerautomation/mcp/adapter"
+  
+  # 环境变量
+  env_vars:
+    POWERAUTOMATION_TEST_MODE: "1"
+    POWERAUTOMATION_PROJECT_ROOT: "/opt/powerautomation"
+
+# 通知配置
+notifications:
+  # 是否启用通知
+  enabled: false
+  
+  # 通知类型
+  types:
+    - "email"
+    - "webhook"
+  
+  # 通知条件
+  conditions:
+    - "test_failure"
+    - "daily_report"
+    - "weekly_report"
+
