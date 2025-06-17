@@ -11,7 +11,7 @@ import logging
 from datetime import datetime
 
 # 添加項目路徑
-sys.path.append('/home/ubuntu/powerauto.ai_0.53')
+sys.path.append('/opt/powerautomation')
 
 from smart_ui import get_smart_ui
 from smart_ui.user_manager import User
@@ -287,9 +287,9 @@ if __name__ == '__main__':
         print("🔄 同步引擎: ✅")
         print("🌐 API服務: ✅")
         print("🚀 服務器就緒！")
-        print("📱 訪問地址: http://localhost:5000")
+        print("📱 訪問地址: http://localhost:5001")
         
-        app.run(host='0.0.0.0', port=5000, debug=True)
+        app.run(host='0.0.0.0', port=5001, debug=True)
         
     except KeyboardInterrupt:
         print("\n🛑 服務器停止中...")
