@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human-in-the-Loop 交互界面 - PowerAutomation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <i class="fas fa-users-cog"></i>
+                    <h1>Human-in-the-Loop</h1>
+                </div>
+                <div class="breadcrumb">
+                    <span>PowerAutomation</span>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>人机交互</span>
+                </div>
+            </div>
+            
+            <div class="header-right">
+                <div class="connection-status" id="connectionStatus">
+                    <span class="status-dot connecting"></span>
+                    <span class="status-text">连接中...</span>
+                </div>
+                
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span class="user-name">操作员</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+            <!-- 侧边栏 -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3>活跃会话</h3>
+                    <div class="session-list" id="sessionList">
+                        <div class="empty-state">
+                            <i class="fas fa-inbox"></i>
+                            <p>暂无活跃会话</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3>统计信息</h3>
+                    <div class="stats-grid" id="statsGrid">
+                        <div class="stat-item">
+                            <div class="stat-value" id="activeSessions">0</div>
+                            <div class="stat-label">活跃会话</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="totalSessions">0</div>
+                            <div class="stat-label">总会话数</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="completedSessions">0</div>
+                            <div class="stat-label">已完成</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- 交互面板 -->
+            <section class="interaction-panel" id="interactionPanel">
+                <div class="welcome-screen" id="welcomeScreen">
+                    <div class="welcome-content">
+                        <i class="fas fa-handshake"></i>
+                        <h2>欢迎使用 Human-in-the-Loop 交互系统</h2>
+                        <p>当工作流需要人工决策时，交互请求将在此显示</p>
+                        <div class="feature-list">
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>实时交互通知</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-clock"></i>
+                                <span>自动超时处理</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>安全可靠</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 交互内容区域 -->
+                <div class="interaction-content" id="interactionContent" style="display: none;">
+                    <!-- 动态生成的交互界面 -->
+                </div>
+            </section>
+        </main>
+
+        <!-- 通知区域 -->
+        <div class="notification-container" id="notificationContainer"></div>
+
+        <!-- 模态框 -->
+        <div class="modal-overlay" id="modalOverlay" style="display: none;">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 id="modalTitle">标题</h3>
+                    <button class="modal-close" id="modalClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalBody">
+                    <!-- 模态框内容 -->
+                </div>
+                <div class="modal-footer" id="modalFooter">
+                    <!-- 模态框按钮 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 脚本 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+

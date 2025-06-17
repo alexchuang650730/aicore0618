@@ -69,7 +69,7 @@ class ConfigurableReviewWorkflow:
     def __init__(self, config_path: Optional[str] = None):
         self.config_path = config_path or "/home/ubuntu/kilocode_integrated_repo/config/review_workflow_config.json"
         self.review_configs = self._load_review_configs()
-        self.human_loop_mcp_url = "http://localhost:8094"  # Human-in-the-Loop MCP
+        self.human_loop_mcp_url = "http://localhost:8096"  # Human-in-the-Loop MCP
         self.dev_intervention_mcp_url = "http://localhost:8092"  # Development Intervention MCP
         
         # 审查统计
@@ -364,12 +364,36 @@ class ConfigurableReviewWorkflow:
     async def _call_human_loop_mcp(self, action: str, params: Dict[str, Any]) -> Dict[str, Any]:
         """调用Human-in-the-Loop MCP"""
         try:
-            response = requests.post(
-                f"{self.human_loop_mcp_url}/mcp/request",
-                json={"action": action, "params": params},
-                timeout=60
-            )
-            return response.json() if response.status_code == 200 else {"success": False}
+            # 根据action类型构建不同的API调用
+            if action == "create_session":
+                response = requests.post(
+                    f"{self.human_loop_mcp_url}/api/sessions",
+                    json=params,
+                    timeout=60
+                )
+            elif action == "get_session":
+                session_id = params.get("session_id")
+                response = requests.get(
+                    f"{self.human_loop_mcp_url}/api/sessions/{session_id}",
+                    timeout=30
+                )
+            elif action == "respond_session":
+                session_id = params.get("session_id")
+                response_data = params.get("response_data", {})
+                response = requests.post(
+                    f"{self.human_loop_mcp_url}/api/sessions/{session_id}/respond",
+                    json=response_data,
+                    timeout=30
+                )
+            else:
+                # 兼容旧的API调用方式
+                response = requests.post(
+                    f"{self.human_loop_mcp_url}/api/sessions",
+                    json={"action": action, "params": params},
+                    timeout=60
+                )
+            
+            return response.json() if response.status_code == 200 else {"success": False, "status_code": response.status_code}
         except Exception as e:
             logger.error(f"调用Human-in-the-Loop MCP失败: {e}")
             return {"success": False, "error": str(e)}

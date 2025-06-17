@@ -1,0 +1,46 @@
+# Human-in-the-Loop MCP 配置文件
+service:
+  name: "human_loop_mcp"
+  version: "1.0.0"
+  description: "Human-in-the-Loop Model Control Protocol"
+  
+server:
+  host: "0.0.0.0"
+  port: 8096
+  debug: false
+  
+database:
+  type: "sqlite"
+  path: "data/human_loop.db"
+  
+redis:
+  host: "localhost"
+  port: 6379
+  db: 5
+  
+session:
+  default_timeout: 300  # 5分钟
+  max_timeout: 3600     # 1小时
+  cleanup_interval: 60  # 清理间隔(秒)
+  
+ui:
+  theme: "light"
+  language: "zh-CN"
+  auto_refresh: true
+  refresh_interval: 5   # 秒
+  
+logging:
+  level: "INFO"
+  file: "logs/human_loop_mcp.log"
+  max_size: "10MB"
+  backup_count: 5
+  
+security:
+  enable_auth: false
+  session_secret: "human-loop-secret-key-2025"
+  cors_origins: ["*"]
+  
+integration:
+  mcp_coordinator_url: "http://localhost:8090"
+  workflow_callback_timeout: 30
+
