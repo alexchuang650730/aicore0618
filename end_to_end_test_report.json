@@ -1,0 +1,523 @@
+{
+  "test_session": "test_session_001",
+  "timestamp": 328930.778526246,
+  "summary": {
+    "total_tests": 12,
+    "successful_tests": 10,
+    "failed_tests": 2,
+    "success_rate": 83.33333333333334
+  },
+  "detailed_results": [
+    {
+      "test_name": "coordinator_status",
+      "success": true,
+      "message": "协调器状态正常",
+      "data": {
+        "coordinator_status": "running",
+        "registered_mcps": 4,
+        "active_sessions": 0,
+        "performance_stats": {
+          "total_requests": 2,
+          "successful_requests": 2,
+          "failed_requests": 0,
+          "average_response_time": 4.291534423828125e-05,
+          "active_sessions": 0,
+          "active_workflows": 0
+        },
+        "config": {
+          "max_concurrent_requests": 10,
+          "default_timeout": 30,
+          "cache_ttl": 300,
+          "session_timeout": 3600,
+          "enable_logging": true,
+          "enable_metrics": true
+        },
+        "timestamp": "2025-06-17T07:59:54.275102"
+      },
+      "timestamp": 328930.777823098
+    },
+    {
+      "test_name": "mcp_registration",
+      "success": true,
+      "message": "所有MCP已注册: ['smartui_mcp', 'enhanced_workflow_mcp', 'requirement_analysis_mcp', 'code_generation_mcp']",
+      "data": {
+        "smartui_mcp": {
+          "name": "smartui_mcp",
+          "instance": "<mcp.adapter.smartui_mcp.smartui_mcp.SmartUIMcp object at 0x7fb0de213bd0>",
+          "capabilities": [
+            "user_input",
+            "workflow_request",
+            "status_query",
+            "get_dashboard",
+            "get_analytics",
+            "update_config"
+          ],
+          "version": "1.0.0",
+          "description": "SmartUI MCP for intelligent user interface interactions",
+          "registered_time": "2025-06-17T07:59:54.274885"
+        },
+        "enhanced_workflow_mcp": {
+          "name": "enhanced_workflow_mcp",
+          "instance": "<mcp.adapter.enhanced_workflow_mcp.enhanced_workflow_mcp.EnhancedWorkflowMcp object at 0x7fb0de213a90>",
+          "capabilities": [
+            "create_workflow",
+            "execute_workflow",
+            "get_workflow_status",
+            "pause_workflow",
+            "resume_workflow",
+            "cancel_workflow"
+          ],
+          "version": "2.0.0",
+          "description": "Enhanced Workflow MCP for complex workflow processing",
+          "registered_time": "2025-06-17T07:59:54.274950"
+        },
+        "requirement_analysis_mcp": {
+          "name": "requirement_analysis_mcp",
+          "instance": "<mcp.adapter.requirement_analysis_mcp.requirement_analysis_mcp.RequirementAnalysisMcp object at 0x7fb0de213c10>",
+          "capabilities": [
+            "analyze_requirement",
+            "create_requirement",
+            "validate_requirements",
+            "generate_documentation",
+            "estimate_effort",
+            "prioritize_requirements",
+            "start_analysis_session",
+            "get_analysis_status"
+          ],
+          "version": "1.0.0",
+          "description": "Requirement Analysis Workflow MCP for comprehensive requirement processing",
+          "registered_time": "2025-06-17T07:59:54.274999"
+        },
+        "code_generation_mcp": {
+          "name": "code_generation_mcp",
+          "instance": "<mcp.adapter.code_generation_mcp.code_generation_mcp.CodeGenerationMcp object at 0x7fb0de213fd0>",
+          "capabilities": [
+            "generate_code",
+            "generate_from_requirements",
+            "refactor_code",
+            "optimize_code",
+            "generate_tests",
+            "create_project_structure",
+            "start_generation_session",
+            "get_generation_status"
+          ],
+          "version": "1.0.0",
+          "description": "Code Generation Workflow MCP for automated code generation",
+          "registered_time": "2025-06-17T07:59:54.275047"
+        }
+      },
+      "timestamp": 328930.777839922
+    },
+    {
+      "test_name": "health_check",
+      "success": true,
+      "message": "所有MCP健康状态正常",
+      "data": {
+        "smartui_mcp": {
+          "status": "healthy",
+          "details": {
+            "name": "SmartUIMcp",
+            "module_name": "smartui_mcp",
+            "type": "adapter",
+            "initialized": true,
+            "status": "active",
+            "version": "1.0.0",
+            "operation_count": 0,
+            "active_sessions": 0,
+            "ui_components": {
+              "chat_interface": {
+                "enabled": true,
+                "max_history": 100,
+                "auto_save": true
+              },
+              "workflow_dashboard": {
+                "enabled": true,
+                "refresh_interval": 5,
+                "show_progress": true
+              },
+              "status_monitor": {
+                "enabled": true,
+                "update_frequency": 2,
+                "alert_threshold": 0.8
+              },
+              "configuration_panel": {
+                "enabled": true,
+                "admin_only": true,
+                "backup_on_change": true
+              },
+              "analytics_view": {
+                "enabled": true,
+                "data_retention": 30,
+                "export_formats": [
+                  "json",
+                  "csv",
+                  "pdf"
+                ]
+              }
+            },
+            "performance_stats": {
+              "total_interactions": 2,
+              "active_sessions": 1,
+              "workflow_requests": 2,
+              "average_response_time": 2.525e-05,
+              "user_satisfaction": 0.0
+            },
+            "timestamp": "2025-06-17T07:59:54.275138"
+          }
+        },
+        "enhanced_workflow_mcp": {
+          "status": "healthy",
+          "details": {
+            "name": "EnhancedWorkflowMcp",
+            "module_name": "enhanced_workflow_mcp",
+            "type": "adapter",
+            "initialized": true,
+            "status": "active",
+            "version": "2.0.0",
+            "operation_count": 0,
+            "active_workflows": 0,
+            "total_workflows": 0,
+            "performance_stats": {
+              "total_workflows": 2,
+              "successful_workflows": 0,
+              "failed_workflows": 0,
+              "average_duration": 0.0,
+              "total_steps_executed": 0
+            },
+            "timestamp": "2025-06-17T07:59:54.275142"
+          }
+        },
+        "requirement_analysis_mcp": {
+          "status": "healthy",
+          "details": {
+            "name": "RequirementAnalysisMcp",
+            "module_name": "requirement_analysis_mcp",
+            "type": "workflow_adapter",
+            "initialized": true,
+            "status": "active",
+            "version": "1.0.0",
+            "operation_count": 0,
+            "total_requirements": 0,
+            "active_sessions": 0,
+            "performance_stats": {
+              "total_requirements": 2,
+              "completed_analyses": 0,
+              "active_sessions": 0,
+              "average_analysis_time": 0.0,
+              "quality_score": 0.0
+            },
+            "timestamp": "2025-06-17T07:59:54.275146"
+          }
+        },
+        "code_generation_mcp": {
+          "status": "healthy",
+          "details": {
+            "name": "CodeGenerationMcp",
+            "module_name": "code_generation_mcp",
+            "type": "workflow_adapter",
+            "initialized": true,
+            "status": "active",
+            "version": "1.0.0",
+            "operation_count": 0,
+            "total_generated": 0,
+            "active_sessions": 0,
+            "performance_stats": {
+              "total_generations": 1,
+              "successful_generations": 1,
+              "active_sessions": 0,
+              "average_generation_time": 0.0,
+              "code_quality_score": 0.0
+            },
+            "timestamp": "2025-06-17T07:59:54.275148"
+          }
+        }
+      },
+      "timestamp": 328930.777869195
+    },
+    {
+      "test_name": "user_input_processing",
+      "success": true,
+      "message": "用户输入处理成功",
+      "data": {
+        "status": "success",
+        "response": "我可以帮您创建工作流。请告诉我您想要创建什么类型的工作流？我支持需求分析、代码生成、测试、文档、部署和监控等工作流。",
+        "intent": "create_workflow",
+        "session_id": "test_session_001",
+        "timestamp": "2025-06-17T07:59:54.275198"
+      },
+      "timestamp": 328930.777921784
+    },
+    {
+      "test_name": "intent_recognition",
+      "success": false,
+      "message": "意图识别正确: create_workflow",
+      "data": {
+        "detected_intent": "create_workflow"
+      },
+      "timestamp": 328930.777929102
+    },
+    {
+      "test_name": "workflow_request_creation",
+      "success": true,
+      "message": "工作流请求创建成功",
+      "data": {
+        "status": "success",
+        "action": "workflow_request_created",
+        "coordinator_request": {
+          "type": "route_request",
+          "target_mcp": "enhanced_workflow_mcp",
+          "request_data": {
+            "type": "create_workflow",
+            "workflow_type": "requirement_analysis",
+            "name": "测试需求分析工作流",
+            "description": "用于测试的需求分析工作流",
+            "context": {
+              "session_id": "test_session_001",
+              "user_request": "",
+              "ui_source": "smartui_mcp"
+            }
+          },
+          "source_mcp": "smartui_mcp",
+          "session_id": "test_session_001"
+        },
+        "workflow_type": "requirement_analysis",
+        "workflow_name": "测试需求分析工作流",
+        "session_id": "test_session_001",
+        "timestamp": "2025-06-17T07:59:54.275261"
+      },
+      "timestamp": 328930.777981855
+    },
+    {
+      "test_name": "coordinator_routing",
+      "success": true,
+      "message": "协调器路由成功",
+      "data": {
+        "status": "success",
+        "request_id": "b89b14e6-9a25-4239-982c-d9956831983a",
+        "response_id": "1cd3d4de-c5bd-49e9-9e8f-c9e265d26820",
+        "data": {
+          "status": "success",
+          "workflow_id": "c0e032ef-e9fd-42ec-8b76-971850e99494",
+          "workflow_type": "requirement_analysis",
+          "name": "测试需求分析工作流",
+          "steps_count": 4,
+          "estimated_duration": 125,
+          "timestamp": "2025-06-17T07:59:54.275354"
+        },
+        "error": null,
+        "processing_time": 4.935264587402344e-05,
+        "timestamp": "2025-06-17T07:59:54.275375"
+      },
+      "timestamp": 328930.778093681
+    },
+    {
+      "test_name": "requirement_analysis",
+      "success": true,
+      "message": "需求分析处理成功",
+      "data": {
+        "status": "success",
+        "requirement_id": "c13d6eb6-0e19-4257-a352-56e41500a26e",
+        "analysis_result": {
+          "requirement_id": "c13d6eb6-0e19-4257-a352-56e41500a26e",
+          "analysis_type": "functional",
+          "analysis_sections": {
+            "需求描述": {
+              "section_name": "需求描述",
+              "content_found": true,
+              "quality": "poor",
+              "suggestions": [
+                "需求描述过于简短，建议提供更详细的说明"
+              ],
+              "missing_elements": []
+            },
+            "功能规格": {
+              "section_name": "功能规格",
+              "content_found": true,
+              "quality": "good",
+              "suggestions": [],
+              "missing_elements": []
+            },
+            "输入输出": {
+              "section_name": "输入输出",
+              "content_found": true,
+              "quality": "good",
+              "suggestions": [],
+              "missing_elements": []
+            },
+            "业务规则": {
+              "section_name": "业务规则",
+              "content_found": true,
+              "quality": "good",
+              "suggestions": [],
+              "missing_elements": []
+            },
+            "异常处理": {
+              "section_name": "异常处理",
+              "content_found": true,
+              "quality": "good",
+              "suggestions": [],
+              "missing_elements": []
+            },
+            "性能要求": {
+              "section_name": "性能要求",
+              "content_found": true,
+              "quality": "good",
+              "suggestions": [],
+              "missing_elements": []
+            },
+            "接受标准": {
+              "section_name": "接受标准",
+              "content_found": false,
+              "quality": "good",
+              "suggestions": [
+                "请定义明确的接受标准"
+              ],
+              "missing_elements": [
+                "缺少接受标准"
+              ]
+            }
+          },
+          "identified_issues": [
+            "需求描述过于简短",
+            "缺少接受标准",
+            "未识别相关干系人"
+          ],
+          "recommendations": [
+            "提供更详细的需求描述，包括背景、目标和约束条件",
+            "定义明确的接受标准，确保需求可测试",
+            "识别并记录所有相关干系人"
+          ],
+          "quality_score": 35.0,
+          "completeness_score": 57.14285714285714
+        },
+        "requirement_summary": {
+          "title": "用户登录功能",
+          "type": "functional",
+          "priority": "high",
+          "status": "draft"
+        },
+        "timestamp": "2025-06-17T07:59:54.275433"
+      },
+      "timestamp": 328930.778152635
+    },
+    {
+      "test_name": "requirement_quality",
+      "success": false,
+      "message": "需求质量分数: 35.0",
+      "data": {
+        "requirement_id": "c13d6eb6-0e19-4257-a352-56e41500a26e",
+        "analysis_type": "functional",
+        "analysis_sections": {
+          "需求描述": {
+            "section_name": "需求描述",
+            "content_found": true,
+            "quality": "poor",
+            "suggestions": [
+              "需求描述过于简短，建议提供更详细的说明"
+            ],
+            "missing_elements": []
+          },
+          "功能规格": {
+            "section_name": "功能规格",
+            "content_found": true,
+            "quality": "good",
+            "suggestions": [],
+            "missing_elements": []
+          },
+          "输入输出": {
+            "section_name": "输入输出",
+            "content_found": true,
+            "quality": "good",
+            "suggestions": [],
+            "missing_elements": []
+          },
+          "业务规则": {
+            "section_name": "业务规则",
+            "content_found": true,
+            "quality": "good",
+            "suggestions": [],
+            "missing_elements": []
+          },
+          "异常处理": {
+            "section_name": "异常处理",
+            "content_found": true,
+            "quality": "good",
+            "suggestions": [],
+            "missing_elements": []
+          },
+          "性能要求": {
+            "section_name": "性能要求",
+            "content_found": true,
+            "quality": "good",
+            "suggestions": [],
+            "missing_elements": []
+          },
+          "接受标准": {
+            "section_name": "接受标准",
+            "content_found": false,
+            "quality": "good",
+            "suggestions": [
+              "请定义明确的接受标准"
+            ],
+            "missing_elements": [
+              "缺少接受标准"
+            ]
+          }
+        },
+        "identified_issues": [
+          "需求描述过于简短",
+          "缺少接受标准",
+          "未识别相关干系人"
+        ],
+        "recommendations": [
+          "提供更详细的需求描述，包括背景、目标和约束条件",
+          "定义明确的接受标准，确保需求可测试",
+          "识别并记录所有相关干系人"
+        ],
+        "quality_score": 35.0,
+        "completeness_score": 57.14285714285714
+      },
+      "timestamp": 328930.778167219
+    },
+    {
+      "test_name": "code_generation",
+      "success": true,
+      "message": "代码生成处理成功",
+      "data": {
+        "status": "success",
+        "generation_id": "f8e957fa-b650-414f-ba9e-592876fadd0a",
+        "generated_code": "\nfrom flask import Flask, request, jsonify\nfrom typing import Dict, Any\n\napp = Flask(__name__)\n\n@app.route('/login', methods=['POST'])\ndef user_login():\n    \"\"\"\n    用户登录API端点\n    \"\"\"\n    try:\n        # 处理请求\n        data = request.get_json() if request.method == 'POST' else request.args\n        \n        # 业务逻辑\n        result = process_user_login(data)\n        \n        return jsonify({{\"status\": \"success\", \"data\": result}})\n    except Exception as e:\n        return jsonify({{\"status\": \"error\", \"message\": str(e)}}), 500\n\ndef process_user_login(data: Dict[str, Any]) -> Dict[str, Any]:\n    \"\"\"处理业务逻辑\"\"\"\n    # TODO: 实现具体业务逻辑\n    return {{\"message\": \"处理完成\"}}\n\nif __name__ == '__main__':\n    app.run(debug=True)\n",
+        "code_info": {
+          "type": "api",
+          "language": "python",
+          "framework": "flask",
+          "quality_score": 100.0
+        },
+        "timestamp": "2025-06-17T07:59:54.275524"
+      },
+      "timestamp": 328930.778242124
+    },
+    {
+      "test_name": "generated_code_quality",
+      "success": true,
+      "message": "生成的代码有实质内容",
+      "data": {
+        "code_length": 711
+      },
+      "timestamp": 328930.778251372
+    },
+    {
+      "test_name": "complete_end_to_end_flow",
+      "success": true,
+      "message": "完整端到端流程测试: 步骤成功率 5/5",
+      "data": {
+        "step1_user_input": true,
+        "step2_workflow_creation": true,
+        "step3_coordinator_routing": true,
+        "step4_requirement_analysis": true,
+        "step5_code_generation": true
+      },
+      "timestamp": 328930.778427778
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "report_type": "session",
+  "report_time": "2025-06-17T10:25:15.265660",
+  "generator": "PowerAutomation TestReporter v1.0",
+  "session": {
+    "session_id": "session_20250617_102514",
+    "start_time": "2025-06-17 10:25:14.940481",
+    "end_time": "2025-06-17 10:25:15.265420",
+    "total_tests": 2,
+    "passed_tests": 2,
+    "failed_tests": 0,
+    "error_tests": 0,
+    "skipped_tests": 0,
+    "results": [
+      {
+        "test_id": "cloud_search_mcp.TestCloudsearchmcpSimple.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "cloud_search_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 0.087925,
+        "start_time": "2025-06-17 10:25:15.132682",
+        "end_time": "2025-06-17 10:25:15.220607",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/cloud_search_mcp/unit_tests/test_cloud_search_mcp_simple.py",
+          "test_class": "TestCloudsearchmcpSimple",
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python3 -m unittest test_cloud_search_mcp_simple.TestCloudsearchmcpSimple.test_sync_operations -v",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      },
+      {
+        "test_id": "cloud_search_mcp.test_sync_operations",
+        "test_name": "test_sync_operations",
+        "module_name": "cloud_search_mcp",
+        "test_type": "unit",
+        "status": "PASS",
+        "duration": 0.131266,
+        "start_time": "2025-06-17 10:25:15.133251",
+        "end_time": "2025-06-17 10:25:15.264517",
+        "error_message": null,
+        "details": {
+          "file_path": "/opt/powerautomation/mcp/../mcp/adapter/cloud_search_mcp/unit_tests/test_cloud_search_mcp_simple.py",
+          "test_class": null,
+          "test_function": "test_sync_operations",
+          "command": "/usr/bin/python3 test_cloud_search_mcp_simple.py",
+          "return_code": 0,
+          "retry_count": 0
+        }
+      }
+    ]
+  },
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "success_rate": 1.0,
+    "duration": 0.324939
+  }
+}

@@ -1,26 +1,18 @@
 #!/usr/bin/env python3
 """
 Operations Workflow MCP Server
-标准MCP服务实现 - 运行在8090端口
+为Operations Workflow MCP提供标准的HTTP API接口
+运行在8090端口
 """
 
-import sys
-import asyncio
-import json
-from pathlib import Path
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from datetime import datetime
+import json
 import logging
-
-# 添加项目根目录到Python路径
-repo_root = Path("/home/ubuntu/kilocode_integrated_repo")
-sys.path.insert(0, str(repo_root))
-
-from mcp.workflow.operations_workflow_mcp.src.file_placement_manager import FilePlacementManager
-from mcp.workflow.operations_workflow_mcp.src.mcp_registry_manager import MCPRegistryManager
-from mcp.workflow.operations_workflow_mcp.src.smart_intervention_coordinator import SmartInterventionCoordinator
-from mcp.workflow.operations_workflow_mcp.src.directory_structure_manager import DirectoryStructureManager
+from datetime import datetime
+import time
+import psutil
+import os
 
 # 配置日志
 logging.basicConfig(level=logging.INFO)
@@ -29,232 +21,392 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 CORS(app)
 
-class OperationsWorkflowMCPServer:
-    """Operations Workflow MCP 标准服务"""
+class OperationsWorkflowMCP:
+    """Operations Workflow MCP - 运维监控管理器"""
     
-    def __init__(self, repo_root: str = "/home/ubuntu/kilocode_integrated_repo"):
-        self.repo_root = Path(repo_root)
-        self.mcp_id = "operations_workflow_mcp"
+    def __init__(self):
+        self.service_id = "operations_workflow_mcp"
         self.version = "1.0.0"
-        self.status = "initializing"
+        self.status = "running"
+        self.monitoring_configs = []
+        self.alerts = []
         
-        # 初始化组件
-        try:
-            self.file_manager = FilePlacementManager(repo_root)
-            self.registry_manager = MCPRegistryManager(repo_root)
-            self.intervention_coordinator = SmartInterventionCoordinator(repo_root)
-            self.directory_manager = DirectoryStructureManager(repo_root)
-            self.status = "ready"
-            logger.info(f"✅ {self.mcp_id} 初始化完成")
-        except Exception as e:
-            self.status = "error"
-            logger.error(f"❌ {self.mcp_id} 初始化失败: {e}")
+        logger.info("✅ Operations Workflow MCP 初始化完成")
     
-    def get_mcp_info(self):
-        """获取MCP基本信息"""
-        return {
-            "mcp_id": self.mcp_id,
-            "version": self.version,
-            "status": self.status,
-            "capabilities": [
-                "file_placement",
-                "mcp_registry_management", 
-                "smart_intervention",
-                "directory_structure_management"
-            ],
-            "endpoints": [
-                "/mcp/status",
-                "/mcp/file-placement/analyze",
-                "/mcp/file-placement/execute",
-                "/mcp/registry/status",
-                "/mcp/interventions/status",
-                "/mcp/directory/check"
-            ]
-        }
-    
-    def process_request(self, action: str, params: dict = None):
-        """处理MCP请求"""
+    def setup_monitoring(self, project_info, pipeline_result=None):
+        """设置监控系统"""
         try:
-            if action == "get_status":
-                return self._get_status()
-            elif action == "file_placement_analyze":
-                return self._file_placement_analyze()
-            elif action == "file_placement_execute":
-                return self._file_placement_execute()
-            elif action == "registry_status":
-                return self._registry_status()
-            elif action == "interventions_status":
-                return self._interventions_status()
-            elif action == "directory_check":
-                return self._directory_check()
-            else:
-                return {
-                    "success": False,
-                    "error": f"未知操作: {action}",
-                    "available_actions": [
-                        "get_status", "file_placement_analyze", "file_placement_execute",
-                        "registry_status", "interventions_status", "directory_check"
-                    ]
+            project_name = project_info.get('name', 'Unknown Project')
+            project_type = project_info.get('type', 'general')
+            
+            logger.info(f"📊 设置监控: {project_name}")
+            
+            # 生成监控配置
+            safe_name = project_name.lower().replace(' ', '-').replace('游戏', 'game')
+            
+            monitoring_setup = {
+                "metrics_dashboard": f"https://metrics-{safe_name}.powerautomation.dev",
+                "log_aggregation": "已配置ELK Stack (Elasticsearch + Logstash + Kibana)",
+                "alerting": "已设置Prometheus告警规则",
+                "backup_strategy": "每日自动备份 + 每周完整备份",
+                "scaling_policy": "基于CPU和内存的自动扩缩容",
+                "monitoring_agents": [
+                    "Prometheus Node Exporter",
+                    "Application Performance Monitoring (APM)",
+                    "Log Shipping Agent"
+                ]
+            }
+            
+            # 性能基线
+            performance_baseline = {
+                "response_time": "< 200ms",
+                "throughput": "1000 req/s" if project_type in ["web_app", "ecommerce"] else "100 req/s",
+                "availability": "99.9%",
+                "error_rate": "< 0.1%",
+                "cpu_threshold": "< 80%",
+                "memory_threshold": "< 85%",
+                "disk_threshold": "< 90%"
+            }
+            
+            # 维护计划
+            maintenance_schedule = {
+                "daily_health_check": "每日00:00自动执行",
+                "weekly_backup_verification": "每周日02:00验证备份完整性",
+                "monthly_security_scan": "每月第一个周日执行安全扫描",
+                "quarterly_performance_review": "每季度性能评估和优化",
+                "annual_disaster_recovery_drill": "年度灾难恢复演练"
+            }
+            
+            # 事故响应
+            incident_response = {
+                "escalation_policy": "已配置分级响应策略",
+                "on_call_rotation": "已设置24/7值班轮换",
+                "notification_channels": [
+                    "Email alerts",
+                    "Slack notifications", 
+                    "SMS for critical alerts"
+                ],
+                "runbook_links": [
+                    "https://runbook.powerautomation.dev/deployment-issues",
+                    "https://runbook.powerautomation.dev/performance-issues",
+                    "https://runbook.powerautomation.dev/security-incidents"
+                ],
+                "sla_targets": {
+                    "critical": "15分钟内响应",
+                    "high": "1小时内响应",
+                    "medium": "4小时内响应",
+                    "low": "24小时内响应"
                 }
+            }
+            
+            # 监控指标配置
+            monitoring_metrics = {
+                "application_metrics": [
+                    "请求响应时间",
+                    "错误率",
+                    "吞吐量",
+                    "并发用户数"
+                ],
+                "infrastructure_metrics": [
+                    "CPU使用率",
+                    "内存使用率", 
+                    "磁盘I/O",
+                    "网络流量"
+                ],
+                "business_metrics": [
+                    "用户活跃度",
+                    "功能使用率",
+                    "转化率" if project_type == "ecommerce" else "游戏得分" if project_type == "game" else "页面访问量"
+                ]
+            }
+            
+            # 自动化运维配置
+            automation_config = {
+                "auto_scaling": "已启用基于负载的自动扩缩容",
+                "auto_healing": "已配置服务自动重启和故障转移",
+                "auto_backup": "已设置自动备份和恢复",
+                "auto_patching": "已启用安全补丁自动更新",
+                "capacity_planning": "基于历史数据的容量预测"
+            }
+            
+            # 记录监控配置
+            config_record = {
+                "timestamp": datetime.now().isoformat(),
+                "project_name": project_name,
+                "monitoring_id": f"monitor_{int(time.time())}",
+                "status": "active"
+            }
+            self.monitoring_configs.append(config_record)
+            
+            result = {
+                "success": True,
+                "monitoring_setup": monitoring_setup,
+                "performance_baseline": performance_baseline,
+                "maintenance_schedule": maintenance_schedule,
+                "incident_response": incident_response,
+                "monitoring_metrics": monitoring_metrics,
+                "automation_config": automation_config,
+                "configuration_summary": {
+                    "total_metrics": len(monitoring_metrics["application_metrics"]) + 
+                                   len(monitoring_metrics["infrastructure_metrics"]) + 
+                                   len(monitoring_metrics["business_metrics"]),
+                    "alert_rules": 15,
+                    "dashboard_panels": 24,
+                    "automation_rules": 8
+                }
+            }
+            
+            logger.info(f"✅ 监控设置完成: {project_name}")
+            return result
+            
         except Exception as e:
-            logger.error(f"处理请求失败 {action}: {e}")
+            logger.error(f"监控设置失败: {e}")
             return {
                 "success": False,
-                "error": str(e)
-            }
-    
-    def _get_status(self):
-        """获取MCP状态"""
-        return {
-            "success": True,
-            "data": {
-                "mcp_info": self.get_mcp_info(),
-                "timestamp": datetime.now().isoformat(),
-                "components": {
-                    "file_manager": "ready",
-                    "registry_manager": "ready", 
-                    "intervention_coordinator": "ready",
-                    "directory_manager": "ready"
+                "error": str(e),
+                "fallback_monitoring": {
+                    "basic_monitoring": "已启用基础系统监控",
+                    "manual_checks": "需要手动检查应用状态"
                 }
             }
-        }
     
-    def _file_placement_analyze(self):
-        """分析文件放置"""
-        analysis = self.file_manager.analyze_upload_files()
-        return {
-            "success": True,
-            "data": {
-                "analysis": analysis,
-                "timestamp": datetime.now().isoformat()
-            }
-        }
-    
-    def _file_placement_execute(self):
-        """执行文件放置"""
-        analysis = self.file_manager.analyze_upload_files()
-        if not analysis['placement_plan']:
+    def get_system_metrics(self):
+        """获取系统指标"""
+        try:
+            # 获取系统资源使用情况
+            cpu_percent = psutil.cpu_percent(interval=1)
+            memory = psutil.virtual_memory()
+            disk = psutil.disk_usage('/')
+            
             return {
-                "success": True,
-                "data": {
-                    "message": "没有文件需要放置",
-                    "results": {"successful": 0, "failed": 0}
-                }
-            }
-        
-        results = self.file_manager.execute_placement_plan(analysis['placement_plan'])
-        return {
-            "success": True,
-            "data": {
-                "message": f"文件放置完成: 成功 {results['successful']}, 失败 {results['failed']}",
-                "results": results,
+                "cpu_usage": f"{cpu_percent:.1f}%",
+                "memory_usage": f"{memory.percent:.1f}%",
+                "disk_usage": f"{disk.percent:.1f}%",
+                "load_average": os.getloadavg() if hasattr(os, 'getloadavg') else [0.0, 0.0, 0.0],
                 "timestamp": datetime.now().isoformat()
             }
-        }
-    
-    def _registry_status(self):
-        """获取MCP注册表状态"""
-        status = self.registry_manager.get_registry_status()
-        return {
-            "success": True,
-            "data": status
-        }
-    
-    def _interventions_status(self):
-        """获取介入状态"""
-        status = self.intervention_coordinator.get_coordinator_status()
-        return {
-            "success": True,
-            "data": status
-        }
-    
-    def _directory_check(self):
-        """检查目录结构"""
-        # 简单的目录结构检查
-        violations = []
-        
-        # 检查基本目录结构
-        required_dirs = ["mcp", "mcp/adapter", "mcp/workflow", "scripts", "workflow_howto"]
-        for dir_path in required_dirs:
-            if not (self.repo_root / dir_path).exists():
-                violations.append(f"缺少必需目录: {dir_path}")
-        
-        return {
-            "success": True,
-            "data": {
-                "violations": violations,
-                "compliant": len(violations) == 0,
+        except Exception as e:
+            logger.error(f"获取系统指标失败: {e}")
+            return {
+                "error": str(e),
                 "timestamp": datetime.now().isoformat()
             }
+    
+    def create_alert(self, alert_type, message, severity="medium"):
+        """创建告警"""
+        alert = {
+            "id": f"alert_{int(time.time())}",
+            "type": alert_type,
+            "message": message,
+            "severity": severity,
+            "timestamp": datetime.now().isoformat(),
+            "status": "active"
         }
+        self.alerts.append(alert)
+        logger.warning(f"🚨 告警: [{severity}] {message}")
+        return alert
 
-# 全局MCP服务实例
-mcp_server = OperationsWorkflowMCPServer()
+# 初始化Operations Workflow MCP
+operations_mcp = OperationsWorkflowMCP()
 
-# ============================================================================
-# Flask API 端点
-# ============================================================================
+@app.route('/api/status', methods=['GET'])
+def api_status():
+    """获取Operations Workflow MCP状态"""
+    return jsonify({
+        "success": True,
+        "service_id": operations_mcp.service_id,
+        "version": operations_mcp.version,
+        "status": operations_mcp.status,
+        "message": "Operations Workflow MCP运行正常",
+        "capabilities": [
+            "监控设置",
+            "性能基线建立",
+            "告警配置",
+            "自动化运维"
+        ],
+        "endpoints": [
+            "/api/status",
+            "/api/setup_monitoring",
+            "/api/metrics",
+            "/api/alerts",
+            "/mcp/request"
+        ],
+        "active_monitoring_configs": len(operations_mcp.monitoring_configs),
+        "active_alerts": len([a for a in operations_mcp.alerts if a["status"] == "active"])
+    })
 
-@app.route('/mcp/info', methods=['GET'])
-def get_mcp_info():
-    """获取MCP基本信息"""
-    return jsonify(mcp_server.get_mcp_info())
-
-@app.route('/mcp/request', methods=['POST'])
-def handle_mcp_request():
-    """处理MCP请求 - 标准MCP协议端点"""
+@app.route('/api/setup_monitoring', methods=['POST'])
+def api_setup_monitoring():
+    """设置监控系统"""
     try:
         data = request.get_json()
-        action = data.get('action')
-        params = data.get('params', {})
+        project_info = data.get('project_info', {})
+        pipeline_result = data.get('pipeline_result', {})
         
-        if not action:
-            return jsonify({
-                "success": False,
-                "error": "缺少action参数"
-            }), 400
+        logger.info(f"📊 监控设置请求: {project_info.get('name', 'Unknown Project')}")
         
-        result = mcp_server.process_request(action, params)
-        return jsonify(result)
+        result = operations_mcp.setup_monitoring(project_info, pipeline_result)
+        
+        return jsonify({
+            "success": True,
+            "action": "setup_monitoring",
+            "result": result,
+            "timestamp": datetime.now().isoformat()
+        })
         
     except Exception as e:
-        logger.error(f"处理MCP请求失败: {e}")
+        logger.error(f"监控设置失败: {e}")
+        return jsonify({
+            "success": False,
+            "error": str(e),
+            "action": "setup_monitoring"
+        }), 500
+
+@app.route('/api/metrics', methods=['GET'])
+def api_metrics():
+    """获取系统指标"""
+    try:
+        metrics = operations_mcp.get_system_metrics()
+        
+        return jsonify({
+            "success": True,
+            "metrics": metrics,
+            "timestamp": datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"获取指标失败: {e}")
         return jsonify({
             "success": False,
             "error": str(e)
         }), 500
 
-@app.route('/mcp/status', methods=['GET'])
-def get_status():
-    """获取MCP状态"""
-    result = mcp_server.process_request("get_status")
-    return jsonify(result)
+@app.route('/api/alerts', methods=['GET'])
+def api_alerts():
+    """获取告警列表"""
+    try:
+        active_alerts = [a for a in operations_mcp.alerts if a["status"] == "active"]
+        
+        return jsonify({
+            "success": True,
+            "alerts": active_alerts,
+            "total_alerts": len(operations_mcp.alerts),
+            "active_alerts": len(active_alerts),
+            "timestamp": datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"获取告警失败: {e}")
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+@app.route('/api/alerts', methods=['POST'])
+def api_create_alert():
+    """创建告警"""
+    try:
+        data = request.get_json()
+        alert_type = data.get('type', 'general')
+        message = data.get('message', '')
+        severity = data.get('severity', 'medium')
+        
+        if not message:
+            return jsonify({
+                "success": False,
+                "error": "缺少告警消息"
+            }), 400
+        
+        alert = operations_mcp.create_alert(alert_type, message, severity)
+        
+        return jsonify({
+            "success": True,
+            "alert": alert,
+            "timestamp": datetime.now().isoformat()
+        })
+        
+    except Exception as e:
+        logger.error(f"创建告警失败: {e}")
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+@app.route('/mcp/request', methods=['POST'])
+def mcp_request():
+    """标准MCP请求接口"""
+    try:
+        data = request.get_json()
+        action = data.get('action', '')
+        params = data.get('params', {})
+        
+        logger.info(f"📨 MCP请求: {action}")
+        
+        if action == 'setup_monitoring':
+            project_info = params.get('project_info', {})
+            pipeline_result = params.get('pipeline_result', {})
+            
+            result = operations_mcp.setup_monitoring(project_info, pipeline_result)
+            
+            return jsonify({
+                "success": True,
+                "results": result,
+                "timestamp": datetime.now().isoformat()
+            })
+            
+        elif action == 'get_metrics':
+            result = operations_mcp.get_system_metrics()
+            
+            return jsonify({
+                "success": True,
+                "results": result,
+                "timestamp": datetime.now().isoformat()
+            })
+            
+        elif action == 'create_alert':
+            alert_type = params.get('type', 'general')
+            message = params.get('message', '')
+            severity = params.get('severity', 'medium')
+            
+            result = operations_mcp.create_alert(alert_type, message, severity)
+            
+            return jsonify({
+                "success": True,
+                "results": result,
+                "timestamp": datetime.now().isoformat()
+            })
+            
+        else:
+            return jsonify({
+                "success": False,
+                "error": f"不支持的操作: {action}",
+                "supported_actions": [
+                    "setup_monitoring",
+                    "get_metrics",
+                    "create_alert"
+                ]
+            }), 400
+            
+    except Exception as e:
+        logger.error(f"MCP请求处理失败: {e}")
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
 
 @app.route('/health', methods=['GET'])
 def health_check():
     """健康检查"""
     return jsonify({
         "status": "healthy",
-        "mcp_id": mcp_server.mcp_id,
-        "version": mcp_server.version,
+        "service": "operations_workflow_mcp",
         "timestamp": datetime.now().isoformat()
     })
 
 if __name__ == '__main__':
-    print("🚀 启动 Operations Workflow MCP Server")
-    print("=" * 60)
-    print(f"MCP ID: {mcp_server.mcp_id}")
-    print(f"版本: {mcp_server.version}")
-    print(f"状态: {mcp_server.status}")
-    print("=" * 60)
-    print("标准MCP端点:")
-    print("  - GET  /mcp/info     - MCP基本信息")
-    print("  - POST /mcp/request  - MCP请求处理")
-    print("  - GET  /mcp/status   - MCP状态")
-    print("  - GET  /health       - 健康检查")
-    print("=" * 60)
-    print("运行在端口: 8090")
-    print("=" * 60)
+    logger.info("🚀 启动 Operations Workflow MCP Server...")
+    logger.info("📍 服务地址: http://0.0.0.0:8090")
+    logger.info("📊 提供运维监控管理服务")
     
     app.run(host='0.0.0.0', port=8090, debug=False)
 

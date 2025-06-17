@@ -1,0 +1,18 @@
+{
+  "timestamp": "2025-06-17T08:01:41.956956",
+  "performance_stats": {
+    "total_requests": 1,
+    "successful_requests": 1,
+    "failed_requests": 0,
+    "average_response_time": 0.0012514591217041016,
+    "active_sessions": 0,
+    "active_workflows": 0
+  },
+  "mcp_status": {
+    "smartui_mcp": "active",
+    "enhanced_workflow_mcp": "active",
+    "requirement_analysis_mcp": "active",
+    "code_generation_mcp": "active"
+  },
+  "active_sessions": 0
+}

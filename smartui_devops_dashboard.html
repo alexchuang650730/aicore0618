@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerAutomation 智慧UI Dashboard v3.0 - DevOps集成版</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #1f2937;
+            line-height: 1.6;
+        }
+        .dashboard-container {
+            display: flex;
+            height: 100vh;
+            background: #f8fafc;
+        }
+        /* 左侧聊天面板 */
+        .chat-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-right: 1px solid #e5e7eb;
+        }
+        .chat-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e5e7eb;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .chat-header h1 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .chat-header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            background: #f9fafb;
+        }
+        .message {
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .message.user {
+            flex-direction: row-reverse;
+        }
+        .message-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+        }
+        .message.ai .message-avatar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .message.user .message-avatar {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .message.ai .message-content {
+            background: white;
+            border: 1px solid #e5e7eb;
+        }
+        .message.user .message-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        /* 输入区域 */
+        .chat-input-area {
+            background: white;
+            border-top: 1px solid #e5e7eb;
+            padding: 16px 24px;
+        }
+        .input-container {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+        .input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+        .chat-input {
+            width: 100%;
+            min-height: 44px;
+            max-height: 120px;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            resize: none;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+        .chat-input:focus {
+            border-color: #667eea;
+        }
+        .send-button {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 80px;
+        }
+        .send-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        .send-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* 处理中状态 */
+        .processing-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 16px;
+        }
+        .processing-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .processing-icon {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #667eea;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .processing-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .progress-bar-container {
+            background: #f3f4f6;
+            border-radius: 8px;
+            height: 8px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .progress-text {
+            font-size: 12px;
+            font-weight: 600;
+            color: #667eea;
+            min-width: 35px;
+        }
+        .processing-steps {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid #e5e7eb;
+        }
+        .step-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+        .step-icon {
+            font-size: 14px;
+        }
+        .step-text {
+            font-size: 13px;
+            color: #374151;
+        }
+        
+        /* AI回复样式 */
+        .ai-response {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+        }
+        .ai-response h3 {
+            color: #1f2937;
+            margin-bottom: 16px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        .ai-response h4 {
+            color: #374151;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .response-section {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .response-section:last-of-type {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .response-section ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+        .response-section li {
+            margin: 4px 0;
+            color: #4b5563;
+            font-size: 13px;
+        }
+        .response-section p {
+            color: #4b5563;
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 4px 0;
+        }
+        
+        /* DevOps按钮样式 - 增强版 */
+        .devops-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+        .devops-btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 140px;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .devops-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+        .devops-btn.test {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+        .devops-btn.test:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+        .devops-btn.deploy {
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+            color: white;
+        }
+        .devops-btn.deploy:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        .devops-btn.monitor {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+        .devops-btn.monitor:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+        }
+        
+        /* 按钮加载状态 */
+        .devops-btn.loading {
+            pointer-events: none;
+        }
+        .devops-btn.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 16px;
+            height: 16px;
+            margin: -8px 0 0 -8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        .devops-btn.loading .btn-text {
+            opacity: 0;
+        }
+        
+        /* DevOps结果显示 */
+        .devops-result {
+            margin-top: 16px;
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            background: white;
+        }
+        .devops-result.success {
+            border-color: #10b981;
+            background: #f0fdf4;
+        }
+        .devops-result.error {
+            border-color: #ef4444;
+            background: #fef2f2;
+        }
+        .devops-result.warning {
+            border-color: #f59e0b;
+            background: #fffbeb;
+        }
+        .result-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .result-icon {
+            font-size: 16px;
+        }
+        .result-title {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .result-content {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .result-details {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 6px;
+            font-size: 12px;
+            font-family: 'Monaco', 'Menlo', monospace;
+        }
+        
+        /* 全流水线按钮 */
+        .full-pipeline-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .full-pipeline-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        .full-pipeline-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            .devops-buttons {
+                flex-direction: column;
+            }
+            .devops-btn {
+                min-width: auto;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="chat-panel">
+            <div class="chat-header">
+                <h1><i class="fas fa-robot"></i> PowerAutomation 智慧UI</h1>
+                <p>AI驱动的开发助手 - 集成完整DevOps流水线</p>
+            </div>
+            
+            <div class="chat-messages" id="chatMessages">
+                <div class="message ai">
+                    <div class="message-avatar">AI</div>
+                    <div class="message-content">
+                        <div class="ai-response">
+                            <h3>🎉 欢迎使用PowerAutomation智慧UI！</h3>
+                            <div class="response-section">
+                                <h4>🚀 全新DevOps集成功能</h4>
+                                <p>现在支持完整的开发到部署流水线：</p>
+                                <ul>
+                                    <li><strong>🧪 自动测试</strong> - Test Manager MCP提供智能测试</li>
+                                    <li><strong>🚀 自动部署</strong> - Release Manager MCP处理部署发布</li>
+                                    <li><strong>📊 自动运维</strong> - Operations Workflow MCP监控运维</li>
+                                </ul>
+                            </div>
+                            <div class="response-section">
+                                <h4>💡 使用方法</h4>
+                                <p>1. 描述您想要开发的项目（如"我要开发贪吃蛇游戏"）</p>
+                                <p>2. AI将生成完整的代码和项目结构</p>
+                                <p>3. 使用DevOps按钮进行测试、部署和监控</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-input-area">
+                <div class="input-container">
+                    <div class="input-wrapper">
+                        <textarea 
+                            id="chatInput" 
+                            class="chat-input" 
+                            placeholder="描述您想要开发的项目..."
+                            rows="1"
+                        ></textarea>
+                    </div>
+                    <button id="sendButton" class="send-button">
+                        <i class="fas fa-paper-plane"></i> 发送
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class SmartUIDevOps {
+            constructor() {
+                this.chatMessages = document.getElementById('chatMessages');
+                this.chatInput = document.getElementById('chatInput');
+                this.sendButton = document.getElementById('sendButton');
+                this.currentProject = null;
+                this.devopsResults = {};
+                
+                this.setupEventListeners();
+            }
+            
+            setupEventListeners() {
+                this.sendButton.addEventListener('click', () => this.sendMessage());
+                this.chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        this.sendMessage();
+                    }
+                });
+                
+                // 自动调整输入框高度
+                this.chatInput.addEventListener('input', () => {
+                    this.chatInput.style.height = 'auto';
+                    this.chatInput.style.height = Math.min(this.chatInput.scrollHeight, 120) + 'px';
+                });
+            }
+            
+            async sendMessage() {
+                const message = this.chatInput.value.trim();
+                if (!message) return;
+                
+                // 添加用户消息
+                this.addMessage('user', message);
+                this.chatInput.value = '';
+                this.chatInput.style.height = 'auto';
+                
+                // 禁用发送按钮
+                this.sendButton.disabled = true;
+                
+                // 显示处理中状态
+                this.showProcessing();
+                
+                try {
+                    // 调用聊天API
+                    const response = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ message: message })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    // 移除处理中状态
+                    this.hideProcessing();
+                    
+                    if (data.success) {
+                        // 保存项目信息
+                        this.currentProject = data.project_info;
+                        
+                        // 显示AI回复
+                        this.showAIResponse(data);
+                    } else {
+                        this.showError(data.error || '处理请求时发生错误');
+                    }
+                } catch (error) {
+                    this.hideProcessing();
+                    this.showError('网络错误，请稍后重试');
+                    console.error('Error:', error);
+                } finally {
+                    this.sendButton.disabled = false;
+                }
+            }
+            
+            addMessage(type, content) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${type}`;
+                
+                const avatar = document.createElement('div');
+                avatar.className = 'message-avatar';
+                avatar.textContent = type === 'user' ? 'U' : 'AI';
+                
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'message-content';
+                
+                if (typeof content === 'string') {
+                    contentDiv.textContent = content;
+                } else {
+                    contentDiv.appendChild(content);
+                }
+                
+                messageDiv.appendChild(avatar);
+                messageDiv.appendChild(contentDiv);
+                
+                this.chatMessages.appendChild(messageDiv);
+                this.scrollToBottom();
+            }
+            
+            showProcessing() {
+                const processingDiv = document.createElement('div');
+                processingDiv.className = 'processing-container';
+                processingDiv.id = 'processingContainer';
+                
+                processingDiv.innerHTML = `
+                    <div class="processing-header">
+                        <div class="processing-icon"></div>
+                        <div class="processing-title">AI正在处理您的请求...</div>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                    <div class="progress-info">
+                        <span class="progress-text" id="progressText">0%</span>
+                        <span id="currentStep">初始化中...</span>
+                    </div>
+                    <div class="processing-steps">
+                        <div class="step-item">
+                            <span class="step-icon">🔍</span>
+                            <span class="step-text">需求分析中...</span>
+                        </div>
+                    </div>
+                `;
+                
+                this.chatMessages.appendChild(processingDiv);
+                this.scrollToBottom();
+                
+                // 模拟进度更新
+                this.simulateProgress();
+            }
+            
+            simulateProgress() {
+                const steps = [
+                    { progress: 20, text: '🔍 需求分析中...', step: '分析项目需求和技术栈' },
+                    { progress: 40, text: '🏗️ 架构设计中...', step: '设计系统架构和组件' },
+                    { progress: 60, text: '💻 代码生成中...', step: '生成完整项目代码' },
+                    { progress: 80, text: '🧪 质量检查中...', step: '验证代码质量和结构' },
+                    { progress: 100, text: '✅ 处理完成', step: '准备DevOps流水线' }
+                ];
+                
+                let currentStep = 0;
+                const interval = setInterval(() => {
+                    if (currentStep < steps.length) {
+                        const step = steps[currentStep];
+                        this.updateProgress(step.progress, step.text, step.step);
+                        currentStep++;
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, 800);
+            }
+            
+            updateProgress(progress, text, step) {
+                const progressBar = document.getElementById('progressBar');
+                const progressText = document.getElementById('progressText');
+                const currentStep = document.getElementById('currentStep');
+                
+                if (progressBar) progressBar.style.width = progress + '%';
+                if (progressText) progressText.textContent = progress + '%';
+                if (currentStep) currentStep.textContent = step;
+            }
+            
+            hideProcessing() {
+                const processingContainer = document.getElementById('processingContainer');
+                if (processingContainer) {
+                    processingContainer.remove();
+                }
+            }
+            
+            showAIResponse(data) {
+                const responseDiv = document.createElement('div');
+                responseDiv.className = 'ai-response';
+                
+                responseDiv.innerHTML = `
+                    <h3>🎉 ${data.message}</h3>
+                    
+                    <div class="response-section">
+                        <h4>📋 项目信息</h4>
+                        <p><strong>项目名称:</strong> ${data.project_info.name}</p>
+                        <p><strong>项目描述:</strong> ${data.project_info.description}</p>
+                        <p><strong>复杂度:</strong> ${data.project_info.complexity}</p>
+                        <p><strong>技术栈:</strong> ${data.project_info.technologies.join(', ')}</p>
+                    </div>
+                    
+                    <div class="response-section">
+                        <h4>📁 生成的文件</h4>
+                        <ul>
+                            ${data.generated_files.map(file => `<li>${file}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="response-section">
+                        <h4>💻 源代码预览</h4>
+                        <p>已生成完整的项目代码，包含所有必要的文件和功能。</p>
+                    </div>
+                `;
+                
+                // 添加DevOps按钮
+                if (data.devops_ready) {
+                    const devopsDiv = document.createElement('div');
+                    devopsDiv.className = 'devops-buttons';
+                    devopsDiv.innerHTML = `
+                        <button class="devops-btn test" onclick="smartUI.executeDevOpsAction('test')">
+                            <i class="fas fa-vial"></i>
+                            <span class="btn-text">自动测试</span>
+                        </button>
+                        <button class="devops-btn deploy" onclick="smartUI.executeDevOpsAction('deploy')">
+                            <i class="fas fa-rocket"></i>
+                            <span class="btn-text">自动部署</span>
+                        </button>
+                        <button class="devops-btn monitor" onclick="smartUI.executeDevOpsAction('monitor')">
+                            <i class="fas fa-chart-line"></i>
+                            <span class="btn-text">运维监控</span>
+                        </button>
+                        <button class="full-pipeline-btn" onclick="smartUI.executeFullPipeline()">
+                            <i class="fas fa-cogs"></i>
+                            <span class="btn-text">执行完整DevOps流水线</span>
+                        </button>
+                    `;
+                    responseDiv.appendChild(devopsDiv);
+                }
+                
+                this.addMessage('ai', responseDiv);
+            }
+            
+            async executeDevOpsAction(action) {
+                if (!this.currentProject) {
+                    this.showError('请先生成一个项目');
+                    return;
+                }
+                
+                const button = document.querySelector(`.devops-btn.${action}`);
+                if (!button) return;
+                
+                // 设置按钮为加载状态
+                button.classList.add('loading');
+                button.disabled = true;
+                
+                try {
+                    const endpoint = `/api/button/${action}`;
+                    const payload = {
+                        project_info: this.currentProject,
+                        test_result: this.devopsResults.test || {},
+                        pipeline_result: this.devopsResults.pipeline || {}
+                    };
+                    
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    const data = await response.json();
+                    
+                    // 保存结果
+                    this.devopsResults[action] = data.result;
+                    
+                    // 显示结果
+                    this.showDevOpsResult(action, data);
+                    
+                } catch (error) {
+                    this.showDevOpsResult(action, {
+                        success: false,
+                        error: '执行失败: ' + error.message
+                    });
+                } finally {
+                    // 恢复按钮状态
+                    button.classList.remove('loading');
+                    button.disabled = false;
+                }
+            }
+            
+            async executeFullPipeline() {
+                if (!this.currentProject) {
+                    this.showError('请先生成一个项目');
+                    return;
+                }
+                
+                const button = document.querySelector('.full-pipeline-btn');
+                if (!button) return;
+                
+                // 设置按钮为加载状态
+                button.classList.add('loading');
+                button.disabled = true;
+                
+                try {
+                    const response = await fetch('/api/devops/full-pipeline', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            project_info: this.currentProject
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    // 保存流水线结果
+                    this.devopsResults.pipeline = data.pipeline_result;
+                    
+                    // 显示流水线结果
+                    this.showPipelineResult(data);
+                    
+                } catch (error) {
+                    this.showError('流水线执行失败: ' + error.message);
+                } finally {
+                    // 恢复按钮状态
+                    button.classList.remove('loading');
+                    button.disabled = false;
+                }
+            }
+            
+            showDevOpsResult(action, data) {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = `devops-result ${data.success ? 'success' : 'error'}`;
+                
+                const actionNames = {
+                    test: '测试',
+                    deploy: '部署',
+                    monitor: '运维监控'
+                };
+                
+                const actionIcons = {
+                    test: 'fas fa-vial',
+                    deploy: 'fas fa-rocket',
+                    monitor: 'fas fa-chart-line'
+                };
+                
+                resultDiv.innerHTML = `
+                    <div class="result-header">
+                        <i class="${actionIcons[action]} result-icon"></i>
+                        <span class="result-title">${actionNames[action]}结果</span>
+                    </div>
+                    <div class="result-content">
+                        ${data.message || (data.success ? '执行成功' : '执行失败')}
+                    </div>
+                `;
+                
+                if (data.result && Object.keys(data.result).length > 0) {
+                    const detailsDiv = document.createElement('div');
+                    detailsDiv.className = 'result-details';
+                    detailsDiv.textContent = JSON.stringify(data.result, null, 2);
+                    resultDiv.appendChild(detailsDiv);
+                }
+                
+                this.addMessage('ai', resultDiv);
+            }
+            
+            showPipelineResult(data) {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = 'ai-response';
+                
+                const pipeline = data.pipeline_result;
+                const statusColors = {
+                    success: '🟢',
+                    partial_success: '🟡',
+                    failed: '🔴',
+                    error: '⚫'
+                };
+                
+                resultDiv.innerHTML = `
+                    <h3>${statusColors[pipeline.overall_status]} DevOps流水线执行完成</h3>
+                    
+                    <div class="response-section">
+                        <h4>📊 流水线概览</h4>
+                        <p><strong>项目:</strong> ${pipeline.project_name}</p>
+                        <p><strong>流水线ID:</strong> ${pipeline.pipeline_id}</p>
+                        <p><strong>总耗时:</strong> ${pipeline.total_duration?.toFixed(1) || 0}秒</p>
+                        <p><strong>整体状态:</strong> ${pipeline.overall_status}</p>
+                    </div>
+                    
+                    <div class="response-section">
+                        <h4>🔄 执行阶段</h4>
+                        <ul>
+                            ${pipeline.phases?.map(phase => `
+                                <li>
+                                    <strong>阶段${phase.phase}: ${phase.name}</strong> 
+                                    (${phase.status}) - ${phase.duration?.toFixed(1) || 0}秒
+                                </li>
+                            `).join('') || '<li>无阶段信息</li>'}
+                        </ul>
+                    </div>
+                `;
+                
+                this.addMessage('ai', resultDiv);
+            }
+            
+            showError(message) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'devops-result error';
+                errorDiv.innerHTML = `
+                    <div class="result-header">
+                        <i class="fas fa-exclamation-triangle result-icon"></i>
+                        <span class="result-title">错误</span>
+                    </div>
+                    <div class="result-content">${message}</div>
+                `;
+                this.addMessage('ai', errorDiv);
+            }
+            
+            scrollToBottom() {
+                this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+            }
+        }
+        
+        // 初始化SmartUI
+        const smartUI = new SmartUIDevOps();
+    </script>
+</body>
+</html>
+
