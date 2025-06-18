@@ -249,3 +249,10 @@ risk_history.json
 *.crt
 config/secrets/
 
+# PDF files (exclude all PDF files by default)
+*.pdf
+
+# Exception: Allow PDF files in docs/ directory
+!docs/*.pdf
+!docs/**/*.pdf
+
