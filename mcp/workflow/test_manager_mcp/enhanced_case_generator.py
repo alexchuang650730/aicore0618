@@ -32,6 +32,7 @@ class EnhancedTestCaseGenerator:
         self.case_templates = self._load_case_templates()
         
     def _load_case_templates(self) -> Dict[str, Any]:
+<<<<<<< HEAD
         """加载测试用例模板 - 优化准确性"""
         return {
             "unit": {
@@ -127,6 +128,34 @@ class EnhancedTestCaseGenerator:
                     "设备兼容测试": ["移动设备", "平板设备", "桌面设备"],
                     "版本兼容测试": ["向前兼容", "向后兼容", "版本升级测试"]
                 }
+=======
+        """加载测试用例模板"""
+        return {
+            "unit": {
+                "categories": ["功能测试", "边界值测试", "异常测试"],
+                "priorities": ["高", "中", "低"],
+                "automation_level": "完全自动化"
+            },
+            "integration": {
+                "categories": ["接口测试", "数据流测试", "系统集成测试"],
+                "priorities": ["高", "中"],
+                "automation_level": "部分自动化"
+            },
+            "e2e": {
+                "categories": ["用户场景测试", "业务流程测试", "端到端测试"],
+                "priorities": ["高", "中"],
+                "automation_level": "部分自动化"
+            },
+            "performance": {
+                "categories": ["负载测试", "压力测试", "容量测试"],
+                "priorities": ["中", "低"],
+                "automation_level": "完全自动化"
+            },
+            "security": {
+                "categories": ["认证测试", "授权测试", "数据安全测试"],
+                "priorities": ["高"],
+                "automation_level": "部分自动化"
+>>>>>>> 0e3116c98243b7e7fddeb0eae422619dece7f4fd
             }
         }
     
@@ -426,6 +455,7 @@ class EnhancedTestCaseGenerator:
             }
         ]
 
+<<<<<<< HEAD
 
     def _generate_cases_by_type(self, test_type: str, project_type: str, requirements: Dict[str, Any] = None) -> List[TestCase]:
         """根据测试类型生成精确的测试用例"""
@@ -688,3 +718,5 @@ class EnhancedTestCaseGenerator:
         else:
             return "低"
 
+=======
+>>>>>>> 0e3116c98243b7e7fddeb0eae422619dece7f4fd

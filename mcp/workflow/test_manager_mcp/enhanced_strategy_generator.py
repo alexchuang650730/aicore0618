@@ -43,17 +43,25 @@ class EnhancedTestStrategyGenerator:
         self.strategy_templates = self._load_strategy_templates()
         
     def _load_strategy_templates(self) -> Dict[str, Any]:
+<<<<<<< HEAD
         """加载测试策略模板 - 扩展更多项目类型"""
         return {
             # Web应用
             "web_app": {
                 "test_types": ["unit", "integration", "e2e", "performance", "security", "accessibility"],
+=======
+        """加载测试策略模板"""
+        return {
+            "web_app": {
+                "test_types": ["unit", "integration", "e2e", "performance", "security"],
+>>>>>>> 0e3116c98243b7e7fddeb0eae422619dece7f4fd
                 "coverage_target": 0.85,
                 "phases": [
                     {"name": "单元测试", "duration": 3, "parallel": "high"},
                     {"name": "集成测试", "duration": 5, "parallel": "medium"},
                     {"name": "端到端测试", "duration": 4, "parallel": "low"},
                     {"name": "性能测试", "duration": 3, "parallel": "low"},
+<<<<<<< HEAD
                     {"name": "安全测试", "duration": 2, "parallel": "low"},
                     {"name": "无障碍测试", "duration": 2, "parallel": "medium"}
                 ],
@@ -61,6 +69,12 @@ class EnhancedTestStrategyGenerator:
             },
             
             # API服务
+=======
+                    {"name": "安全测试", "duration": 2, "parallel": "low"}
+                ],
+                "tools": ["pytest", "selenium", "locust", "bandit"]
+            },
+>>>>>>> 0e3116c98243b7e7fddeb0eae422619dece7f4fd
             "api": {
                 "test_types": ["unit", "integration", "contract", "performance", "security"],
                 "coverage_target": 0.90,
@@ -73,8 +87,11 @@ class EnhancedTestStrategyGenerator:
                 ],
                 "tools": ["pytest", "postman", "pact", "jmeter", "owasp-zap"]
             },
+<<<<<<< HEAD
             
             # 游戏应用
+=======
+>>>>>>> 0e3116c98243b7e7fddeb0eae422619dece7f4fd
             "game": {
                 "test_types": ["unit", "gameplay", "performance", "ui", "compatibility"],
                 "coverage_target": 0.75,
@@ -86,6 +103,7 @@ class EnhancedTestStrategyGenerator:
                     {"name": "兼容性测试", "duration": 3, "parallel": "low"}
                 ],
                 "tools": ["unity-test", "selenium", "unity-profiler", "device-farm"]
+<<<<<<< HEAD
             },
             
             # 移动应用
@@ -191,6 +209,8 @@ class EnhancedTestStrategyGenerator:
                     {"name": "云安全测试", "duration": 3, "parallel": "low"}
                 ],
                 "tools": ["pytest", "docker-test", "kubernetes-test", "helm-test", "falco"]
+=======
+>>>>>>> 0e3116c98243b7e7fddeb0eae422619dece7f4fd
             }
         }
     
@@ -369,6 +389,7 @@ class EnhancedTestStrategyGenerator:
             "note": "使用简化的后备测试策略"
         }
 
+<<<<<<< HEAD
 
     def detect_project_type(self, project_info: Dict[str, Any]) -> str:
         """智能检测项目类型"""
@@ -484,3 +505,5 @@ class EnhancedTestStrategyGenerator:
         }
         return descriptions.get(project_type, "未知项目类型")
 
+=======
+>>>>>>> 0e3116c98243b7e7fddeb0eae422619dece7f4fd
