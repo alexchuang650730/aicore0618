@@ -32,32 +32,101 @@ class EnhancedTestCaseGenerator:
         self.case_templates = self._load_case_templates()
         
     def _load_case_templates(self) -> Dict[str, Any]:
-        """加载测试用例模板"""
+        """加载测试用例模板 - 优化准确性"""
         return {
             "unit": {
-                "categories": ["功能测试", "边界值测试", "异常测试"],
+                "categories": ["功能测试", "边界值测试", "异常测试", "状态测试", "数据验证"],
                 "priorities": ["高", "中", "低"],
-                "automation_level": "完全自动化"
+                "automation_level": "完全自动化",
+                "patterns": {
+                    "功能测试": ["正常输入验证", "返回值检查", "方法调用验证"],
+                    "边界值测试": ["最小值测试", "最大值测试", "临界值测试"],
+                    "异常测试": ["空值处理", "无效输入", "异常抛出验证"],
+                    "状态测试": ["对象状态变化", "状态转换验证", "状态一致性"],
+                    "数据验证": ["数据类型检查", "数据格式验证", "数据完整性"]
+                }
             },
             "integration": {
-                "categories": ["接口测试", "数据流测试", "系统集成测试"],
+                "categories": ["接口测试", "数据流测试", "系统集成测试", "服务交互测试", "依赖测试"],
                 "priorities": ["高", "中"],
-                "automation_level": "部分自动化"
+                "automation_level": "部分自动化",
+                "patterns": {
+                    "接口测试": ["API调用验证", "参数传递测试", "响应格式检查"],
+                    "数据流测试": ["数据传输验证", "数据转换测试", "数据一致性"],
+                    "系统集成测试": ["模块间交互", "系统间通信", "集成点验证"],
+                    "服务交互测试": ["服务调用链", "服务依赖验证", "服务降级测试"],
+                    "依赖测试": ["外部依赖验证", "依赖失败处理", "依赖版本兼容"]
+                }
             },
             "e2e": {
-                "categories": ["用户场景测试", "业务流程测试", "端到端测试"],
+                "categories": ["用户场景测试", "业务流程测试", "端到端测试", "用户体验测试", "跨平台测试"],
                 "priorities": ["高", "中"],
-                "automation_level": "部分自动化"
+                "automation_level": "部分自动化",
+                "patterns": {
+                    "用户场景测试": ["典型用户路径", "用户操作序列", "用户目标达成"],
+                    "业务流程测试": ["完整业务流程", "业务规则验证", "流程异常处理"],
+                    "端到端测试": ["系统完整链路", "数据端到端流转", "功能完整性"],
+                    "用户体验测试": ["界面响应性", "操作便利性", "错误提示友好性"],
+                    "跨平台测试": ["多浏览器兼容", "多设备适配", "多操作系统支持"]
+                }
             },
             "performance": {
-                "categories": ["负载测试", "压力测试", "容量测试"],
+                "categories": ["负载测试", "压力测试", "容量测试", "稳定性测试", "资源使用测试"],
                 "priorities": ["中", "低"],
-                "automation_level": "完全自动化"
+                "automation_level": "完全自动化",
+                "patterns": {
+                    "负载测试": ["正常负载验证", "峰值负载测试", "负载分布测试"],
+                    "压力测试": ["极限压力测试", "压力恢复测试", "压力点识别"],
+                    "容量测试": ["最大容量验证", "容量扩展测试", "容量限制测试"],
+                    "稳定性测试": ["长时间运行", "内存泄漏检测", "系统稳定性"],
+                    "资源使用测试": ["CPU使用率", "内存使用量", "磁盘I/O性能"]
+                }
             },
             "security": {
-                "categories": ["认证测试", "授权测试", "数据安全测试"],
+                "categories": ["认证测试", "授权测试", "数据安全测试", "输入验证测试", "会话管理测试"],
                 "priorities": ["高"],
-                "automation_level": "部分自动化"
+                "automation_level": "部分自动化",
+                "patterns": {
+                    "认证测试": ["登录验证", "密码策略", "多因素认证"],
+                    "授权测试": ["权限控制", "角色验证", "访问控制"],
+                    "数据安全测试": ["数据加密", "敏感数据保护", "数据传输安全"],
+                    "输入验证测试": ["SQL注入防护", "XSS防护", "输入过滤"],
+                    "会话管理测试": ["会话超时", "会话固定", "会话劫持防护"]
+                }
+            },
+            # 新增测试类型
+            "accessibility": {
+                "categories": ["键盘导航测试", "屏幕阅读器测试", "色彩对比测试", "语义标记测试"],
+                "priorities": ["中"],
+                "automation_level": "部分自动化",
+                "patterns": {
+                    "键盘导航测试": ["Tab键导航", "快捷键功能", "焦点管理"],
+                    "屏幕阅读器测试": ["语音输出验证", "标签读取", "内容结构"],
+                    "色彩对比测试": ["对比度检查", "色盲友好", "高对比模式"],
+                    "语义标记测试": ["HTML语义", "ARIA标签", "标题结构"]
+                }
+            },
+            "ui": {
+                "categories": ["界面布局测试", "交互测试", "响应式测试", "视觉回归测试"],
+                "priorities": ["中", "低"],
+                "automation_level": "部分自动化",
+                "patterns": {
+                    "界面布局测试": ["元素位置", "布局适配", "内容显示"],
+                    "交互测试": ["点击响应", "拖拽功能", "手势操作"],
+                    "响应式测试": ["屏幕适配", "分辨率测试", "设备兼容"],
+                    "视觉回归测试": ["界面截图对比", "样式变化检测", "视觉一致性"]
+                }
+            },
+            "compatibility": {
+                "categories": ["浏览器兼容测试", "操作系统兼容测试", "设备兼容测试", "版本兼容测试"],
+                "priorities": ["中"],
+                "automation_level": "部分自动化",
+                "patterns": {
+                    "浏览器兼容测试": ["Chrome兼容", "Firefox兼容", "Safari兼容", "Edge兼容"],
+                    "操作系统兼容测试": ["Windows兼容", "macOS兼容", "Linux兼容"],
+                    "设备兼容测试": ["移动设备", "平板设备", "桌面设备"],
+                    "版本兼容测试": ["向前兼容", "向后兼容", "版本升级测试"]
+                }
             }
         }
     
@@ -356,4 +425,266 @@ class EnhancedTestCaseGenerator:
                 "automation_level": "完全自动化"
             }
         ]
+
+
+    def _generate_cases_by_type(self, test_type: str, project_type: str, requirements: Dict[str, Any] = None) -> List[TestCase]:
+        """根据测试类型生成精确的测试用例"""
+        if test_type not in self.case_templates:
+            return []
+        
+        template = self.case_templates[test_type]
+        cases = []
+        
+        # 基于项目类型调整用例生成策略
+        project_specific_adjustments = self._get_project_specific_adjustments(project_type, test_type)
+        
+        # 为每个类别生成用例
+        for category in template["categories"]:
+            patterns = template["patterns"].get(category, [])
+            
+            for pattern in patterns:
+                case = self._create_detailed_test_case(
+                    test_type=test_type,
+                    category=category,
+                    pattern=pattern,
+                    project_type=project_type,
+                    requirements=requirements,
+                    adjustments=project_specific_adjustments
+                )
+                cases.append(case)
+        
+        return cases
+    
+    def _get_project_specific_adjustments(self, project_type: str, test_type: str) -> Dict[str, Any]:
+        """获取项目类型特定的调整"""
+        adjustments = {
+            "mobile_app": {
+                "ui": {"focus": "触摸交互", "platforms": ["iOS", "Android"]},
+                "performance": {"metrics": ["启动时间", "内存使用", "电池消耗"]},
+                "compatibility": {"devices": ["手机", "平板"], "os_versions": ["多版本"]}
+            },
+            "web_app": {
+                "ui": {"focus": "响应式设计", "browsers": ["Chrome", "Firefox", "Safari"]},
+                "performance": {"metrics": ["页面加载时间", "首屏渲染", "交互响应"]},
+                "accessibility": {"standards": ["WCAG 2.1", "Section 508"]}
+            },
+            "api": {
+                "integration": {"focus": "接口契约", "protocols": ["REST", "GraphQL"]},
+                "performance": {"metrics": ["响应时间", "吞吐量", "并发处理"]},
+                "security": {"focus": ["认证", "授权", "数据验证"]}
+            },
+            "microservice": {
+                "integration": {"focus": "服务间通信", "patterns": ["同步", "异步"]},
+                "performance": {"metrics": ["服务延迟", "链路追踪", "熔断恢复"]},
+                "security": {"focus": ["服务认证", "网络安全", "数据加密"]}
+            },
+            "blockchain": {
+                "security": {"focus": ["智能合约安全", "交易验证", "共识机制"]},
+                "performance": {"metrics": ["交易吞吐量", "确认时间", "Gas消耗"]},
+                "integration": {"focus": ["链上链下交互", "跨链通信"]}
+            },
+            "ml_project": {
+                "data_validation": {"focus": ["数据质量", "特征工程", "模型验证"]},
+                "performance": {"metrics": ["推理速度", "模型精度", "资源消耗"]},
+                "bias": {"focus": ["公平性检测", "偏见识别", "模型解释性"]}
+            }
+        }
+        
+        return adjustments.get(project_type, {}).get(test_type, {})
+    
+    def _create_detailed_test_case(self, test_type: str, category: str, pattern: str, 
+                                 project_type: str, requirements: Dict[str, Any] = None,
+                                 adjustments: Dict[str, Any] = None) -> TestCase:
+        """创建详细的测试用例"""
+        case_id = f"{test_type}_{category}_{pattern}".replace(" ", "_").replace("测试", "").lower()
+        
+        # 基于模式生成具体的测试步骤
+        steps = self._generate_test_steps(test_type, category, pattern, project_type, adjustments)
+        
+        # 生成测试数据
+        test_data = self._generate_test_data(test_type, category, pattern, project_type, requirements)
+        
+        # 生成期望结果
+        expected_result = self._generate_expected_result(test_type, category, pattern, adjustments)
+        
+        # 生成前置条件
+        preconditions = self._generate_preconditions(test_type, category, project_type)
+        
+        # 确定优先级
+        priority = self._determine_priority(test_type, category, pattern, project_type)
+        
+        return TestCase(
+            id=case_id,
+            name=f"{category} - {pattern}",
+            description=f"验证{pattern}在{project_type}项目中的{category}功能",
+            category=category,
+            priority=priority,
+            test_type=test_type,
+            preconditions=preconditions,
+            steps=steps,
+            expected_result=expected_result,
+            test_data=test_data,
+            automation_level=self.case_templates[test_type]["automation_level"]
+        )
+    
+    def _generate_test_steps(self, test_type: str, category: str, pattern: str, 
+                           project_type: str, adjustments: Dict[str, Any] = None) -> List[str]:
+        """生成详细的测试步骤"""
+        base_steps = {
+            "unit": [
+                "1. 准备测试环境和测试数据",
+                "2. 初始化被测试的类或方法",
+                "3. 执行测试方法并传入测试参数",
+                "4. 验证返回结果是否符合预期",
+                "5. 清理测试环境和资源"
+            ],
+            "integration": [
+                "1. 启动相关的系统组件和服务",
+                "2. 配置组件间的连接和依赖关系",
+                "3. 发送测试请求到目标接口",
+                "4. 验证数据在组件间的正确传递",
+                "5. 检查系统状态和日志信息",
+                "6. 关闭测试环境"
+            ],
+            "e2e": [
+                "1. 启动完整的应用程序环境",
+                "2. 模拟真实用户的操作流程",
+                "3. 执行完整的业务场景操作",
+                "4. 验证每个步骤的界面反馈",
+                "5. 检查最终的业务结果",
+                "6. 验证数据的完整性和一致性"
+            ],
+            "performance": [
+                "1. 配置性能测试环境和监控工具",
+                "2. 设置测试负载和并发用户数",
+                "3. 执行性能测试场景",
+                "4. 监控系统资源使用情况",
+                "5. 收集性能指标数据",
+                "6. 分析性能瓶颈和优化建议"
+            ],
+            "security": [
+                "1. 配置安全测试环境",
+                "2. 准备安全测试工具和脚本",
+                "3. 执行安全漏洞扫描",
+                "4. 尝试各种攻击场景",
+                "5. 验证安全防护机制",
+                "6. 生成安全测试报告"
+            ]
+        }
+        
+        steps = base_steps.get(test_type, ["1. 执行测试", "2. 验证结果"])
+        
+        # 根据项目类型和调整信息定制步骤
+        if adjustments and project_type == "mobile_app" and test_type == "ui":
+            steps.insert(2, "2.1. 测试触摸手势和多点触控")
+            steps.insert(3, "2.2. 验证不同屏幕尺寸的适配")
+        
+        return steps
+    
+    def _generate_test_data(self, test_type: str, category: str, pattern: str, 
+                          project_type: str, requirements: Dict[str, Any] = None) -> Dict[str, Any]:
+        """生成测试数据"""
+        base_data = {
+            "test_environment": "测试环境",
+            "test_user": "test_user",
+            "test_timestamp": datetime.now().isoformat()
+        }
+        
+        # 根据测试类型添加特定数据
+        if test_type == "unit":
+            base_data.update({
+                "input_values": ["正常值", "边界值", "异常值"],
+                "expected_outputs": ["预期结果1", "预期结果2", "异常处理"]
+            })
+        elif test_type == "performance":
+            base_data.update({
+                "concurrent_users": 100,
+                "test_duration": "10分钟",
+                "performance_thresholds": {
+                    "response_time": "< 2秒",
+                    "throughput": "> 1000 TPS",
+                    "error_rate": "< 1%"
+                }
+            })
+        elif test_type == "security":
+            base_data.update({
+                "attack_vectors": ["SQL注入", "XSS攻击", "CSRF攻击"],
+                "security_tools": ["OWASP ZAP", "Burp Suite"],
+                "compliance_standards": ["OWASP Top 10", "ISO 27001"]
+            })
+        
+        # 根据项目类型调整数据
+        if project_type == "mobile_app":
+            base_data["test_devices"] = ["iPhone 12", "Samsung Galaxy S21", "iPad Pro"]
+        elif project_type == "web_app":
+            base_data["test_browsers"] = ["Chrome 91+", "Firefox 89+", "Safari 14+"]
+        
+        return base_data
+    
+    def _generate_expected_result(self, test_type: str, category: str, pattern: str, 
+                                adjustments: Dict[str, Any] = None) -> str:
+        """生成期望结果"""
+        result_templates = {
+            "unit": f"{pattern}执行成功，返回预期结果，无异常抛出",
+            "integration": f"组件间{pattern}正常，数据传递准确，系统状态正确",
+            "e2e": f"用户{pattern}流程完整，界面响应正确，业务目标达成",
+            "performance": f"系统在{pattern}场景下性能指标满足要求",
+            "security": f"系统在{pattern}测试中安全防护有效，无安全漏洞"
+        }
+        
+        base_result = result_templates.get(test_type, f"{pattern}测试通过")
+        
+        # 根据调整信息添加特定期望
+        if adjustments:
+            if "metrics" in adjustments:
+                metrics = ", ".join(adjustments["metrics"])
+                base_result += f"，{metrics}指标正常"
+        
+        return base_result
+    
+    def _generate_preconditions(self, test_type: str, category: str, project_type: str) -> List[str]:
+        """生成前置条件"""
+        base_conditions = [
+            "测试环境已准备就绪",
+            "测试数据已准备完毕",
+            "相关权限已配置"
+        ]
+        
+        # 根据测试类型添加特定条件
+        type_conditions = {
+            "unit": ["开发环境已搭建", "单元测试框架已配置"],
+            "integration": ["所有相关服务已启动", "网络连接正常"],
+            "e2e": ["完整应用环境已部署", "测试用户账号已创建"],
+            "performance": ["性能测试工具已安装", "监控系统已配置"],
+            "security": ["安全测试工具已准备", "测试权限已申请"]
+        }
+        
+        base_conditions.extend(type_conditions.get(test_type, []))
+        
+        # 根据项目类型添加特定条件
+        if project_type == "mobile_app":
+            base_conditions.append("测试设备已连接并配置")
+        elif project_type == "web_app":
+            base_conditions.append("测试浏览器已安装并配置")
+        
+        return base_conditions
+    
+    def _determine_priority(self, test_type: str, category: str, pattern: str, project_type: str) -> str:
+        """确定测试优先级"""
+        # 高优先级模式
+        high_priority_patterns = [
+            "正常输入验证", "API调用验证", "典型用户路径", "登录验证", "数据加密"
+        ]
+        
+        # 中优先级模式
+        medium_priority_patterns = [
+            "边界值测试", "数据传输验证", "界面响应性", "负载测试"
+        ]
+        
+        if pattern in high_priority_patterns:
+            return "高"
+        elif pattern in medium_priority_patterns:
+            return "中"
+        else:
+            return "低"
 
