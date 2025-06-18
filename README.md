@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 # PowerAutomation v0.572
 
 **企业级分布式测试协调平台**
@@ -228,6 +229,8 @@ python3 enhanced_smartui_server.py
 - **邮箱**: alexchuang650730@gmail.com
 >>>>>>> 588bbb4687b1d9eff91e7115657fb34facbf3b48
 =======
+=======
+>>>>>>> 6e962540b7f1a44d4892de7af45650ac8bd1a69d
 # PowerAutomation Platform
 
 **版本**: 2.1  
@@ -366,4 +369,7 @@ Powerautomation/
 
 *PowerAutomation Platform - 让AI驱动的开发更智能、更高效*
 
+<<<<<<< HEAD
 >>>>>>> fc1525368711230da2586d4c928810f1e886598c
+=======
+>>>>>>> 6e962540b7f1a44d4892de7af45650ac8bd1a69d

@@ -70,10 +70,14 @@ class ConfigurableReviewWorkflow:
         self.config_path = config_path or "/home/ubuntu/kilocode_integrated_repo/config/review_workflow_config.json"
         self.review_configs = self._load_review_configs()
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.human_loop_mcp_url = "http://localhost:8096"  # Human-in-the-Loop MCP
 =======
         self.human_loop_mcp_url = "http://localhost:8094"  # Human-in-the-Loop MCP
 >>>>>>> fc1525368711230da2586d4c928810f1e886598c
+=======
+        self.human_loop_mcp_url = "http://localhost:8094"  # Human-in-the-Loop MCP
+>>>>>>> 6e962540b7f1a44d4892de7af45650ac8bd1a69d
         self.dev_intervention_mcp_url = "http://localhost:8092"  # Development Intervention MCP
         
         # 审查统计
@@ -369,6 +373,7 @@ class ConfigurableReviewWorkflow:
         """调用Human-in-the-Loop MCP"""
         try:
 <<<<<<< HEAD
+<<<<<<< HEAD
             # 根据action类型构建不同的API调用
             if action == "create_session":
                 response = requests.post(
@@ -400,13 +405,18 @@ class ConfigurableReviewWorkflow:
             
             return response.json() if response.status_code == 200 else {"success": False, "status_code": response.status_code}
 =======
+=======
+>>>>>>> 6e962540b7f1a44d4892de7af45650ac8bd1a69d
             response = requests.post(
                 f"{self.human_loop_mcp_url}/mcp/request",
                 json={"action": action, "params": params},
                 timeout=60
             )
             return response.json() if response.status_code == 200 else {"success": False}
+<<<<<<< HEAD
 >>>>>>> fc1525368711230da2586d4c928810f1e886598c
+=======
+>>>>>>> 6e962540b7f1a44d4892de7af45650ac8bd1a69d
         except Exception as e:
             logger.error(f"调用Human-in-the-Loop MCP失败: {e}")
             return {"success": False, "error": str(e)}
