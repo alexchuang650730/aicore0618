@@ -215,8 +215,10 @@ class LocalCapabilityAssessor:
             InteractionType.DOCUMENTATION: 'comment_generation'
         }
     
-    def assess_local_capability(self, task_type: InteractionType, 
-                              complexity: TaskComplexity) -> float:
+    def assess_capability(self, task_type: str) -> float:
+        """評估本地處理能力 - 兼容方法"""
+        # 簡化版本，直接返回基礎能力評分
+        return self.local_model_capabilities.get(task_type, 0.5)
         """評估本地處理能力"""
         base_capability = self.local_model_capabilities.get(
             self.task_capability_mapping.get(task_type, 'function_generation'), 0.5
@@ -731,4 +733,111 @@ if __name__ == "__main__":
     print(f"Total Cost Saved: ${stats['total_cost_saved']:.4f}")
     
     print("\n✅ Smart Routing System initialized successfully!")
+
+
+
+class SmartRoutingSystem:
+    """智慧路由系統 - 缺失的核心類"""
+    
+    def __init__(self):
+        self.privacy_classifier = PrivacyClassifier()
+        self.capability_assessor = LocalCapabilityAssessor()
+        self.interaction_log = InteractionLogManager()
+        self.logger = logging.getLogger(__name__)
+        
+        # 路由統計
+        self.routing_stats = {
+            "total_requests": 0,
+            "local_processed": 0,
+            "cloud_processed": 0,
+            "hybrid_processed": 0,
+            "cost_saved": 0.0
+        }
+    
+    async def route_request(self, request_data: Dict[str, Any]) -> RoutingDecision:
+        """智慧路由決策"""
+        try:
+            self.routing_stats["total_requests"] += 1
+            
+            # 分析隱私敏感度
+            content = request_data.get("content", "")
+            privacy_level = self.privacy_classifier.classify_sensitivity(content)
+            
+            # 分析任務複雜度
+            task_type = request_data.get("task_type", "general")
+            complexity = self.privacy_classifier.analyze_complexity(content, task_type)
+            
+            # 評估本地處理能力
+            local_capability = self.capability_assessor.assess_capability(task_type)
+            
+            # 決策邏輯
+            if privacy_level == PrivacySensitivity.HIGH_SENSITIVE:
+                processing_location = ProcessingLocation.LOCAL_ONLY
+                self.routing_stats["local_processed"] += 1
+            elif complexity == TaskComplexity.ULTRA_COMPLEX and local_capability < 0.5:
+                processing_location = ProcessingLocation.CLOUD_ANONYMIZED
+                self.routing_stats["cloud_processed"] += 1
+            elif complexity in [TaskComplexity.MEDIUM, TaskComplexity.COMPLEX]:
+                processing_location = ProcessingLocation.HYBRID_PROCESSING
+                self.routing_stats["hybrid_processed"] += 1
+            else:
+                processing_location = ProcessingLocation.LOCAL_PREFERRED
+                self.routing_stats["local_processed"] += 1
+            
+            # 估算成本和Token
+            estimated_tokens = len(content.split()) * 1.3  # 粗略估算
+            estimated_cost = estimated_tokens * 0.00002 if processing_location in [
+                ProcessingLocation.CLOUD_ALLOWED, ProcessingLocation.CLOUD_ANONYMIZED
+            ] else 0.0
+            
+            # 計算置信度
+            confidence_score = min(0.95, local_capability + 0.2)
+            
+            decision = RoutingDecision(
+                processing_location=processing_location,
+                privacy_level=privacy_level,
+                task_complexity=complexity,
+                confidence_score=confidence_score,
+                estimated_cost=estimated_cost,
+                estimated_tokens=int(estimated_tokens),
+                reasoning=f"Privacy: {privacy_level.value}, Complexity: {complexity.value}, Local capability: {local_capability:.2f}",
+                fallback_options=[ProcessingLocation.LOCAL_ONLY, ProcessingLocation.CLOUD_ANONYMIZED]
+            )
+            
+            # 記錄決策
+            await self.interaction_log.log_interaction(
+                interaction_type="routing_decision",
+                user_request=request_data,
+                agent_response=asdict(decision),
+                deliverable_type="routing_decision",
+                deliverable_content=decision.reasoning
+            )
+            
+            return decision
+            
+        except Exception as e:
+            self.logger.error(f"路由決策失敗: {e}")
+            # 默認安全路由
+            return RoutingDecision(
+                processing_location=ProcessingLocation.LOCAL_ONLY,
+                privacy_level=PrivacySensitivity.HIGH_SENSITIVE,
+                task_complexity=TaskComplexity.SIMPLE,
+                confidence_score=0.5,
+                estimated_cost=0.0,
+                estimated_tokens=0,
+                reasoning="Error fallback to local processing",
+                fallback_options=[ProcessingLocation.LOCAL_ONLY]
+            )
+    
+    def get_routing_stats(self) -> Dict[str, Any]:
+        """獲取路由統計"""
+        return self.routing_stats.copy()
+    
+    async def update_capability_assessment(self, task_type: str, success_rate: float):
+        """更新本地能力評估"""
+        if hasattr(self.capability_assessor, 'local_model_capabilities'):
+            current = self.capability_assessor.local_model_capabilities.get(task_type, 0.5)
+            # 簡單的學習更新
+            updated = (current * 0.8) + (success_rate * 0.2)
+            self.capability_assessor.local_model_capabilities[task_type] = min(0.95, max(0.1, updated))
 
