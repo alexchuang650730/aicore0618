@@ -69,7 +69,11 @@ class ConfigurableReviewWorkflow:
     def __init__(self, config_path: Optional[str] = None):
         self.config_path = config_path or "/home/ubuntu/kilocode_integrated_repo/config/review_workflow_config.json"
         self.review_configs = self._load_review_configs()
+<<<<<<< HEAD
         self.human_loop_mcp_url = "http://localhost:8096"  # Human-in-the-Loop MCP
+=======
+        self.human_loop_mcp_url = "http://localhost:8094"  # Human-in-the-Loop MCP
+>>>>>>> fc1525368711230da2586d4c928810f1e886598c
         self.dev_intervention_mcp_url = "http://localhost:8092"  # Development Intervention MCP
         
         # 审查统计
@@ -364,6 +368,7 @@ class ConfigurableReviewWorkflow:
     async def _call_human_loop_mcp(self, action: str, params: Dict[str, Any]) -> Dict[str, Any]:
         """调用Human-in-the-Loop MCP"""
         try:
+<<<<<<< HEAD
             # 根据action类型构建不同的API调用
             if action == "create_session":
                 response = requests.post(
@@ -394,6 +399,14 @@ class ConfigurableReviewWorkflow:
                 )
             
             return response.json() if response.status_code == 200 else {"success": False, "status_code": response.status_code}
+=======
+            response = requests.post(
+                f"{self.human_loop_mcp_url}/mcp/request",
+                json={"action": action, "params": params},
+                timeout=60
+            )
+            return response.json() if response.status_code == 200 else {"success": False}
+>>>>>>> fc1525368711230da2586d4c928810f1e886598c
         except Exception as e:
             logger.error(f"调用Human-in-the-Loop MCP失败: {e}")
             return {"success": False, "error": str(e)}
