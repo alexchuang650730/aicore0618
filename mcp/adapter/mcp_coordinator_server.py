@@ -11,7 +11,7 @@ import json
 from datetime import datetime
 =======
 MCP Coordinator Server
-中央协调器 - 运行在8089端口，管理所有MCP通信
+中央协调器 - 运行在8089端口,管理所有MCP通信
 """
 
 import asyncio

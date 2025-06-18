@@ -426,3 +426,73 @@ def main():
 if __name__ == '__main__':
     main()
 
+
+        
+        @self.app.route('/api/mcp/call/<target_mcp_id>', methods=['POST'])
+        def call_other_mcp(target_mcp_id: str):
+            """调用其他MCP"""
+            try:
+                data = request.get_json()
+                
+                # 通过协调器调用其他MCP
+                result = asyncio.run(self.coordinator_client.call_other_mcp(target_mcp_id, data))
+                
+                return jsonify(result)
+                
+            except Exception as e:
+                self.logger.error(f"调用其他MCP失败: {e}")
+                return jsonify({"error": str(e)}), 500
+        
+        @self.app.route('/api/mcp/list', methods=['GET'])
+        def get_mcp_list():
+            """获取已注册的MCP列表"""
+            try:
+                result = asyncio.run(self.coordinator_client.get_registered_mcps())
+                return jsonify(result)
+            except Exception as e:
+                self.logger.error(f"获取MCP列表失败: {e}")
+                return jsonify({"error": str(e)}), 500
+        
+        @self.app.route('/api/mcp/health/<mcp_id>', methods=['GET'])
+        def check_mcp_health(mcp_id: str):
+            """检查指定MCP的健康状态"""
+            try:
+                result = asyncio.run(self.coordinator_client.check_mcp_health(mcp_id))
+                return jsonify(result)
+            except Exception as e:
+                self.logger.error(f"检查MCP健康状态失败: {e}")
+                return jsonify({"error": str(e)}), 500
+        
+        @self.app.route('/api/coordinator/status', methods=['GET'])
+        def get_coordinator_status():
+            """获取协调器状态"""
+            try:
+                response = requests.get(f"{self.coordinator_client.coordinator_url}/coordinator/info", timeout=5)
+                if response.status_code == 200:
+                    return jsonify({
+                        "coordinator_connected": True,
+                        "coordinator_info": response.json(),
+                        "registered": self.coordinator_client.registered
+                    })
+                else:
+                    return jsonify({
+                        "coordinator_connected": False,
+                        "error": f"HTTP {response.status_code}",
+                        "registered": False
+                    })
+            except Exception as e:
+                return jsonify({
+                    "coordinator_connected": False,
+                    "error": str(e),
+                    "registered": False
+                })
+        
+        # 静态文件服务
+        @self.app.route('/css/<path:filename>')
+        def serve_css(filename):
+            return send_from_directory('../frontend/css', filename)
+        
+        @self.app.route('/js/<path:filename>')
+        def serve_js(filename):
+            return send_from_directory('../frontend/js', filename)
+
